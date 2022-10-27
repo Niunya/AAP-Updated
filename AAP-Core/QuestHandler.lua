@@ -62,6 +62,9 @@ local AAP_BonusObj = {
 	[35237] = 1,
 	[34639] = 1,
 	[34660] = 1,
+	[36792] = 1,
+	[35649] = 1,
+	[36660] = 1,
 ---- Legion Bonus Obj ----
 	[36811] = 1,
 	[37466] = 1,
@@ -189,7 +192,6 @@ end
 function AAP:MoveIcons()
 	local d_y, d_x = UnitPosition("player")
 	if (IsInInstance() or AAP1[AAP.Realm][AAP.Name]["Settings"]["ShowBlobs"] == 0 or not d_y) then
-		AAP.RemoveIcons()
 		return
 	end
 	local CurStep = AAP1[AAP.Realm][AAP.Name][AAP.ActiveMap]
@@ -665,7 +667,18 @@ local function AAP_PrintQStep()
 	if (AAP1["Debug"]) then
 		print("Function: AAP_PrintQStep()")
 	end
+	if (IsInGroup() and AAP1[AAP.Realm][AAP.Name]["Settings"]["ShowGroup"] == 1) then
+	elseif (AAP.PartyList.PartyFrames[1]:IsShown()) then
+		for CLi = 1, 5 do
+			AAP.PartyList.PartyFrames[CLi]:Hide()
+			AAP.PartyList.PartyFrames2[CLi]:Hide()
+		end
+	end
 	if (IsInInstance()) then
+		for CLi = 1, 5 do
+			AAP.PartyList.PartyFrames[CLi]:Hide()
+			AAP.PartyList.PartyFrames2[CLi]:Hide()
+		end
 		AAP.ZoneQuestOrder:Hide()
 		return
 	elseif (AAP1[AAP.Realm][AAP.Name]["Settings"] and AAP1[AAP.Realm][AAP.Name]["Settings"]["ShowQuestListOrder"] and AAP1[AAP.Realm][AAP.Name]["Settings"]["ShowQuestListOrder"] == 1) then
@@ -740,7 +753,8 @@ local function AAP_PrintQStep()
 		end
 		return
 	end
-	if (AAP.ProgressText) then
+	
+	if (AAP.ActiveMap and AAP.QuestStepList and AAP.QuestStepList[AAP.ActiveMap] and AAP.ProgressText and AAP.ProgressShown == 1) then
 		AAP.QuestList.QuestFrames["MyProgress"]:Show()
 		AAP.QuestList.QuestFrames["MyProgressFS"]:SetText(AAP.ProgressText)
 	else
@@ -970,20 +984,28 @@ local function AAP_PrintQStep()
 		end
 		
 		if (AAP.Level > 35 and AAP.Level < 50) then
-			local OnTime = 0
-			local ChrimeTimez = C_ChromieTime.GetChromieTimeExpansionOptions()
-			for AAP_index,AAP_value in pairs(ChrimeTimez) do
-				if (ChrimeTimez[AAP_index] and ChrimeTimez[AAP_index]["id"] and ChrimeTimez[AAP_index]["id"] == 9 and ChrimeTimez[AAP_index]["alreadyOn"] and ChrimeTimez[AAP_index]["alreadyOn"] == true) then
-					OnTime = 1
+			if (AAP.ActiveMap and AAP.QuestStepListListing["Shadowlands"][AAP.ActiveMap]) then
+				local OnTime = 0
+				local ChrimeTimez = C_ChromieTime.GetChromieTimeExpansionOptions()
+				for AAP_index,AAP_value in pairs(ChrimeTimez) do
+					if (ChrimeTimez[AAP_index] and ChrimeTimez[AAP_index]["id"] and ChrimeTimez[AAP_index]["id"] == 9 and ChrimeTimez[AAP_index]["alreadyOn"] and ChrimeTimez[AAP_index]["alreadyOn"] == true) then
+						OnTime = 1
+					end
+				end
+				if (OnTime == 0) then
+					LineNr = LineNr + 1
+					AAP.QuestList.QuestFrames["FS"..LineNr]:SetText("** You are not in Chromie Time!")
+					AAP.QuestList.QuestFrames[LineNr]:Show()
 				end
 			end
-			if (OnTime == 0) then
-				LineNr = LineNr + 1
-				AAP.QuestList.QuestFrames["FS"..LineNr]:SetText("** Your NOT on ChromieTime!")
-				AAP.QuestList.QuestFrames[LineNr]:Show()
+		end
+		if (steps["DoIHaveFlight"]) then
+			if (GetSpellBookItemInfo(GetSpellInfo(33391)) or GetSpellBookItemInfo(GetSpellInfo(90265)) or GetSpellBookItemInfo(GetSpellInfo(34090))) then
+				AAP1[AAP.Realm][AAP.Name][AAP.ActiveMap] = AAP1[AAP.Realm][AAP.Name][AAP.ActiveMap] + 1
+				AAP.BookingList["UpdateQuest"] = 1
+				AAP.BookingList["PrintQStep"] = 1
 			end
 		end
-		
 		
 		if (GetSpellBookItemInfo(GetSpellInfo(90265))) then
 		elseif (AAP.Level > 39) then
@@ -2995,12 +3017,10 @@ local function AAP_PosTest()
 	local d_y, d_x = UnitPosition("player")
 	if (not d_y) then
 		AAP.ArrowFrame:Hide()
-		AAP.RemoveIcons()
 	elseif (AAP1 and AAP1[AAP.Realm][AAP.Name] and AAP1[AAP.Realm][AAP.Name]["Settings"] and AAP1[AAP.Realm][AAP.Name]["Settings"]["ShowArrow"] == 0) then
 		AAP.ArrowActive = 0
 		AAP.ArrowFrame:Hide()
 		
-		AAP.RemoveIcons()
 	else
 		local CurStep = AAP1[AAP.Realm][AAP.Name][AAP.ActiveMap]
 		if (AAP.QuestStepList and AAP.QuestStepList[AAP.ActiveMap] and AAP.QuestStepList[AAP.ActiveMap][CurStep] and AAP.QuestStepList[AAP.ActiveMap][CurStep]["AreaTriggerZ"]) then
@@ -3019,7 +3039,6 @@ local function AAP_PosTest()
 			if (AAP.ArrowFrame) then
 				AAP.ArrowActive = 0
 				AAP.ArrowFrame:Hide()
-				AAP.RemoveIcons()
 			end
 		else
 			AAP.ArrowFrame:Show()
@@ -3107,7 +3126,6 @@ local function AAP_LoopBookingFunc()
 			AAP.BookingList["ClosedSettings"] = nil
 			QNumberLocal = 0
 			AAP.ArrowActive = 0
-			AAP.RemoveIcons()
 			local CLi
 			for CLi = 1, 10 do
 				AAP.QuestList.QuestFrames[CLi]:Hide()
@@ -3482,7 +3500,6 @@ AAP_QH_EventFrame:RegisterEvent ("ITEM_PUSH")
 AAP_QH_EventFrame:RegisterEvent ("QUEST_AUTOCOMPLETE")
 AAP_QH_EventFrame:RegisterEvent ("QUEST_ACCEPT_CONFIRM")
 AAP_QH_EventFrame:RegisterEvent ("UNIT_ENTERED_VEHICLE")
-AAP_QH_EventFrame:RegisterEvent ("CHROMIE_TIME_OPEN")
 AAP_QH_EventFrame:RegisterEvent ("QUEST_LOG_UPDATE")
 AAP_QH_EventFrame:RegisterEvent ("PLAYER_TARGET_CHANGED")
 AAP_QH_EventFrame:RegisterEvent ("PLAYER_REGEN_ENABLED")
@@ -3721,27 +3738,6 @@ AAP_QH_EventFrame:SetScript("OnEvent", function(self, event, ...)
 			if (steps and steps["SpecialNoAutoHandin"]) then
 			else
 				AAP_PopupFunc()
-			end
-		end
-	end
-	
-	if (event=="CHROMIE_TIME_OPEN") then
-		local CurStep = AAP1[AAP.Realm][AAP.Name][AAP.ActiveMap]
-		local steps
-		if (CurStep and AAP.QuestStepList and AAP.QuestStepList[AAP.ActiveMap]) then
-			steps = AAP.QuestStepList[AAP.ActiveMap][CurStep]
-		end
-		if (steps and steps["ChromiePick"]) then
-			local AAPChromie = C_ChromieTime.GetChromieTimeExpansionOptions()
-			for AAP_index,AAP_value in pairs(AAPChromie) do
-				if (steps["ChromiePick"] == AAPChromie[AAP_index]["id"]) then
-					C_ChromieTime.SelectChromieTimeOption(AAPChromie[AAP_index]["id"])
-					print("AAP: Switched to "..AAPChromie[AAP_index]["name"].." time.")
-					AAP1[AAP.Realm][AAP.Name][AAP.ActiveMap] = AAP1[AAP.Realm][AAP.Name][AAP.ActiveMap] + 1
-					AAP.BookingList["UpdateQuest"] = 1
-					AAP.BookingList["PrintQStep"] = 1
-					break
-				end
 			end
 		end
 	end
@@ -4121,7 +4117,7 @@ AAP_QH_EventFrame:SetScript("OnEvent", function(self, event, ...)
 			end
 		end
 		local CurStep = AAP1[AAP.Realm][AAP.Name][AAP.ActiveMap]
-		if (CurStep and AAP.QuestStepList[AAP.ActiveMap] and AAP.QuestStepList[AAP.ActiveMap][CurStep]) then
+		if (CurStep and AAP.QuestStepList[AAP.ActiveMap] and AAP.QuestStepList[AAP.ActiveMap][CurStep] and AAP1[AAP.Realm][AAP.Name]["Settings"]["AutoGossip"] == 1 and not IsControlKeyDown()) then
 			local steps = AAP.QuestStepList[AAP.ActiveMap][CurStep]
 			if (UnitGUID("target") and string.find(UnitGUID("target"), "(.*)-(.*)")) then
 				local type, zero, server_id, instance_id, zone_uid, npc_id, spawn_uid = strsplit("-",UnitGUID("target"))
@@ -4168,7 +4164,7 @@ AAP_QH_EventFrame:SetScript("OnEvent", function(self, event, ...)
 			if (AAPDenied == 1) then
 				C_GossipInfo.CloseGossip()
 				print("AAP: Not Yet!")
-			elseif (steps and steps["Gossip"] and steps["Gossip"] == 28202 and not IsControlKeyDown()) then
+			elseif (steps and steps["Gossip"] and steps["Gossip"] == 28202 and AAP1[AAP.Realm][AAP.Name]["Settings"]["AutoGossip"] == 1 and not IsControlKeyDown()) then
 				AAPGOSSIPCOUNT = AAPGOSSIPCOUNT + 1
 				print(AAPGOSSIPCOUNT)
 				if (AAPGOSSIPCOUNT == 1) then
@@ -4300,7 +4296,7 @@ AAP_QH_EventFrame:SetScript("OnEvent", function(self, event, ...)
 			if (QuestGetAutoAccept()) then
 				CloseQuest()
 			else
-				QuestInfoDescriptionText:SetAlphaGradient(0, -1)
+				QuestInfoDescriptionText:SetAlphaGradient(1, 1)
 				QuestInfoDescriptionText:SetAlpha(1)
 				AAP.BookingList["AcceptQuest"] = 1
 			end

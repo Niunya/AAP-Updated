@@ -501,7 +501,7 @@ AAP.QuestList.QuestFrames["MyProgress"].texture = t
 		AAP["Icons"][CLi]:SetFrameStrata("HIGH")
 		AAP["Icons"][CLi]:SetWidth(5)
 		AAP["Icons"][CLi]:SetHeight(5)
-		local t = 	AAP["Icons"][CLi]:CreateTexture(nil,"HIGH")
+		local t = 	AAP["Icons"][CLi]:CreateTexture(nil,"BACKGROUND")
 		t:SetTexture("Interface\\Addons\\AAP-Core\\Img\\Icon.blp")
 		t:SetAllPoints(AAP["Icons"][CLi])
 		AAP["Icons"][CLi].texture = t
@@ -516,7 +516,7 @@ AAP.QuestList.QuestFrames["MyProgress"].texture = t
 		AAP["MapIcons"][CLi]:SetFrameStrata("HIGH")
 		AAP["MapIcons"][CLi]:SetWidth(5)
 		AAP["MapIcons"][CLi]:SetHeight(5)
-		local t = 	AAP["MapIcons"][CLi]:CreateTexture(nil,"HIGH")
+		local t = 	AAP["MapIcons"][CLi]:CreateTexture(nil,"BACKGROUND")
 		t:SetTexture("Interface\\Addons\\AAP-Core\\Img\\Icon.blp")
 		t:SetAllPoints(AAP["MapIcons"][CLi])
 		AAP["MapIcons"][CLi].texture = t

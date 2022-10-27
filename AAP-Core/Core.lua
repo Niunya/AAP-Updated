@@ -33,6 +33,7 @@ AAP.MapZoneIcons = {}
 AAP.MapZoneIconsRed = {}
 AAP.SettingsOpen = 0
 AAP.InCombat = 0
+AAP.ProgressShown = 0
 AAP.BookUpdAfterCombat = 0
 AAP.QuestListShown = 0
 AAP.MapLoaded = 0
@@ -127,6 +128,7 @@ function AAP.AutoPathOnBeta(ChoiceZ)
 		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"(4/6) 10-50 Gorgrond")
 		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"(5/6) 10-50 Talador")
 		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"(6/6) 10-50 Spires of Arak")
+		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"(7-extra) 10-50 Nagrand")
 	elseif (ChoiceZ == 1 and AAP.Level < 50 and AAP.Level > 9 and AAP.Faction == "Horde") then
 		AAP_Custom[AAP.Name.."-"..AAP.Realm] = nil
 		AAP_Custom[AAP.Name.."-"..AAP.Realm] = {}
@@ -140,6 +142,7 @@ function AAP.AutoPathOnBeta(ChoiceZ)
 		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"(4/6) 10-50 Gorgrond")
 		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"(5/6) 10-50 Talador")
 		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"(6/6) 10-50 Spires of Arak")
+		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"(7-extra) 10-50 Nagrand")
 	elseif (ZeMap == 1409 or ZeMap == 1726 or ZeMap == 1727) then
 		AAP_Custom[AAP.Name.."-"..AAP.Realm] = nil
 		AAP_Custom[AAP.Name.."-"..AAP.Realm] = {}
@@ -349,11 +352,6 @@ function AAP.ResetSettings()
 	else
 		AAP.OptionsFrame.ShowGroupCheckButton:SetChecked(true)
 	end
-	if (AAP1[AAP.Realm][AAP.Name]["Settings"]["BannerShow"] == 0) then
-		AAP.OptionsFrame.BannerShowCheckButton:SetChecked(false)
-	else
-		AAP.OptionsFrame.BannerShowCheckButton:SetChecked(true)
-	end
 	if (AAP1[AAP.Realm][AAP.Name]["Settings"]["AutoGossip"] == 0) then
 		AAP.OptionsFrame.AutoGossipCheckButton:SetChecked(false)
 	else
@@ -401,11 +399,28 @@ function AAP.ResetSettings()
 	AAP.OptionsFrame.QuestListScaleSlider:SetValue(AAP1[AAP.Realm][AAP.Name]["Settings"]["Scale"] * 100)
 	AAP.OptionsFrame.ArrowScaleSlider:SetValue(AAP1[AAP.Realm][AAP.Name]["Settings"]["ArrowScale"] * 100)
 
-
+	AAP.QuestList.MainFrame:ClearAllPoints()
 	AAP.QuestList.MainFrame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", AAP1[AAP.Realm][AAP.Name]["Settings"]["left"], AAP1[AAP.Realm][AAP.Name]["Settings"]["top"])
 	AAP.ArrowFrame:SetScale(AAP1[AAP.Realm][AAP.Name]["Settings"]["ArrowScale"])
 	AAP.ArrowFrameM:ClearAllPoints()
 	AAP.ArrowFrameM:SetPoint("TOPLEFT", UIParent, "TOPLEFT", AAP1[AAP.Realm][AAP.Name]["Settings"]["arrowleft"], AAP1[AAP.Realm][AAP.Name]["Settings"]["arrowtop"])
+	AAP.ZoneQuestOrder:ClearAllPoints()
+	AAP.ZoneQuestOrder:SetPoint("CENTER", UIParent, "CENTER",1,1)
+	AAP1[AAP.Realm][AAP.Name]["Settings"]["ArrowScale"] = UIParent:GetScale()
+	AAP1[AAP.Realm][AAP.Name]["Settings"]["LockArrow"] = 0
+	AAP1[AAP.Realm][AAP.Name]["Settings"]["ArrowFPS"] = 2
+	AAP1[AAP.Realm][AAP.Name]["Settings"]["arrowleft"] = GetScreenWidth() / 2.05
+	AAP1[AAP.Realm][AAP.Name]["Settings"]["arrowtop"] = -(GetScreenHeight() / 1.5)
+	AAP.ArrowFrame:SetScale(AAP1[AAP.Realm][AAP.Name]["Settings"]["ArrowScale"])
+	AAP.ArrowFrameM:ClearAllPoints()
+	AAP.ArrowFrameM:SetPoint("TOPLEFT", UIParent, "TOPLEFT", AAP1[AAP.Realm][AAP.Name]["Settings"]["arrowleft"], AAP1[AAP.Realm][AAP.Name]["Settings"]["arrowtop"])
+	AAP.OptionsFrame.ArrowFpsSlider:SetValue(AAP1[AAP.Realm][AAP.Name]["Settings"]["ArrowFPS"])
+	if (AAP1[AAP.Realm][AAP.Name]["Settings"]["LockArrow"] == 0) then
+		AAP.OptionsFrame.LockArrowCheckButton:SetChecked(false)
+	else
+		AAP.OptionsFrame.LockArrowCheckButton:SetChecked(true)
+	end
+	AAP.OptionsFrame.ArrowScaleSlider:SetValue(AAP1[AAP.Realm][AAP.Name]["Settings"]["ArrowScale"] * 100)
 end
 local function AAP_SlashCmd(AAP_index)
 	if (AAP_index == "reset") then
@@ -447,7 +462,7 @@ AAP.ArrowFrame:SetMovable(true)
 AAP.ArrowFrame.arrow = AAP.ArrowFrame:CreateTexture(nil, "OVERLAY")
 AAP.ArrowFrame.arrow:SetTexture("Interface\\Addons\\AAP-Core\\Img\\Arrow.blp")
 AAP.ArrowFrame.arrow:SetAllPoints()
-AAP.ArrowFrame.distance = AAP.ArrowFrame:CreateFontString("ARTWORK", "ChatFontNormal")
+AAP.ArrowFrame.distance = AAP.ArrowFrame:CreateFontString(nil, "ARTWORK", "ChatFontNormal")
 AAP.ArrowFrame.distance:SetFontObject("GameFontNormalSmall")
 AAP.ArrowFrame.distance:SetPoint("TOP", AAP.ArrowFrame, "BOTTOM", 0, 0)
 AAP.ArrowFrame:Hide()
@@ -692,6 +707,38 @@ AAP.LoadInOptionFrame["B2"]:Hide()
 			AAP.RoutePlan.isMoving = false;
 		end
 	end)
+	
+	
+	
+		AAP.RoutePlan.FG1.HelpText = CreateFrame("frame", "AAP.RoutePlanMainFsramex2xxxshlp", AAP.RoutePlan.FG1)
+		AAP.RoutePlan.FG1.HelpText:SetWidth(250)
+		AAP.RoutePlan.FG1.HelpText:SetHeight(20)
+		AAP.RoutePlan.FG1.HelpText:SetMovable(true)
+		AAP.RoutePlan.FG1.HelpText:EnableMouse(true)
+		AAP.RoutePlan.FG1.HelpText:SetFrameStrata("HIGH")
+		AAP.RoutePlan.FG1.HelpText:SetResizable(true)
+		AAP.RoutePlan.FG1.HelpText:SetScale(0.7)
+		AAP.RoutePlan.FG1.HelpText:SetPoint("BOTTOMLEFT", AAP.RoutePlan.FG1.xg2, "BOTTOMLEFT", 20,-15)
+		--AAP.RoutePlan.FG1["Fxz"..CLi]:SetBackdrop( { 
+		--	bgFile = "Interface\\Buttons\\WHITE8X8", tile = false, tileSize=0,
+		--	edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+		--	tile = true, tileSize = 10, edgeSize = 10, insets = { left = 2, right = 2, top = 2, bottom = 2 }
+		--});
+		local t = AAP.RoutePlan.FG1.HelpText:CreateTexture(nil,"BACKGROUND")
+		t:SetTexture("Interface\\Buttons\\WHITE8X8")
+		t:SetAllPoints(AAP.RoutePlan.FG1.HelpText)
+		t:SetColorTexture(0.1,0.1,0.4,1)
+		AAP.RoutePlan.FG1.HelpText.texture = t
+		AAP.RoutePlan.FG1.HelpText.FS = AAP.RoutePlan.FG1.HelpText:CreateFontString("AAP.RoutePlan_Fx3x_FFGs1Shlp","ARTWORK", "ChatFontNormal")
+		AAP.RoutePlan.FG1.HelpText.FS:SetParent(AAP.RoutePlan.FG1.HelpText)
+		AAP.RoutePlan.FG1.HelpText.FS:SetPoint("TOP",AAP.RoutePlan.FG1.HelpText,"TOP",0,1)
+		AAP.RoutePlan.FG1.HelpText.FS:SetWidth(250)
+		AAP.RoutePlan.FG1.HelpText.FS:SetHeight(20)
+		AAP.RoutePlan.FG1.HelpText.FS:SetJustifyH("CENTER")
+		AAP.RoutePlan.FG1.HelpText.FS:SetFontObject("GameFontNormal")
+		AAP.RoutePlan.FG1.HelpText.FS:SetText("Right-click or drag to move routes")
+	
+	
 	
 	
 	AAP.RoutePlan.FG1.F24 = CreateFrame("frame", "AAP.RoutePlanMainFr22ame4", AAP.RoutePlan.FG1)
@@ -1994,8 +2041,10 @@ function AAP.NumbRoutePlan(Continz)
 				zenr = zenr + 1
 			end
 		end
-		for AAP_index2,AAP_value2 in pairs(AAP.QuestStepListListing["Kalimdor"]) do
-			zenr = zenr + 1
+		if (AAP.QuestStepListListing["Kalimdor"]) then
+			for AAP_index2,AAP_value2 in pairs(AAP.QuestStepListListing["Kalimdor"]) do
+				zenr = zenr + 1
+			end
 		end
 	elseif (Continz == "BrokenIsles") then
 		if (AAP.QuestStepListListingStartAreas["BrokenIsles"]) then
@@ -2244,6 +2293,9 @@ AAP.CoreEventFrame:SetScript("OnEvent", function(self, event, ...)
 			end
 			if (not AAP1[AAP.Realm][AAP.Name]["Settings"]["AutoGossip"]) then
 				AAP1[AAP.Realm][AAP.Name]["Settings"]["AutoGossip"] = 1
+			end
+			if (not AAP1[AAP.Realm][AAP.Name]["Settings"]["AutoFlight"]) then
+				AAP1[AAP.Realm][AAP.Name]["Settings"]["AutoFlight"] = 1
 			end
 			if (not AAP1[AAP.Realm][AAP.Name]["Settings"]["Hcampleft"]) then
 				AAP1[AAP.Realm][AAP.Name]["Settings"]["Hcampleft"] = GetScreenWidth() / 1.6

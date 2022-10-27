@@ -6,8 +6,8 @@ AAP_panel.title = CreateFrame("SimpleHTML",nil,AAP.AAP_panel)
 AAP_panel.title:SetWidth(500)
 AAP_panel.title:SetHeight(20)
 AAP_panel.title:SetPoint("TOPLEFT", AAP.AAP_panel, 0,-30)
-AAP_panel.title:SetFontObject("GameFontHighlightLarge")
-AAP_panel.title:SetText("Azeroth Auto Pilot - v" .. AAP.Version)
+AAP_panel.title:SetFontObject("P","GameFontHighlightLarge")
+AAP_panel.title:SetText("AAP - Updated - v" .. AAP.Version)
 
 AAP_panel.Button1 = CreateFrame("Button", "ZPButton2", AAP.AAP_panel)
 AAP_panel.Button1:SetPoint("TOPLEFT", AAP.AAP_panel, "TOPLEFT", 120, -100)
@@ -31,7 +31,7 @@ AAP_panel.Button1ptex:SetTexCoord(0, 0.625, 0, 0.6875)
 AAP_panel.Button1ptex:SetAllPoints()
 AAP_panel.Button1:SetPushedTexture(AAP_panel.Button1ptex)
 AAP_panel.Button1:SetScript("OnClick", function(self, arg1)
-	InterfaceOptionsFrame:Hide()
+	SettingsPanel:Hide()
 	HideUIPanel(GameMenuFrame)
 	AAP.OptionsFrame.MainFrame:Show()
 end)
@@ -116,7 +116,7 @@ AAP.OptionsFrame.MainFrame.Options.texture = t
 	AAP.OptionsFrame.FontString1:SetWidth(240)
 	AAP.OptionsFrame.FontString1:SetHeight(20)
 	AAP.OptionsFrame.FontString1:SetFontObject("GameFontHighlightLarge")
-	AAP.OptionsFrame.FontString1:SetText("Azeroth Auto Pilot - v" .. AAP.Version)
+	AAP.OptionsFrame.FontString1:SetText("AAP - Updated - v" .. AAP.Version)
 	AAP.OptionsFrame.FontString1:SetTextColor(1, 1, 0)
 -------------------- Quest Options ----------------------------------------
 	AAP.OptionsFrame.MainFrame.OptionsB1 = CreateFrame("frame", "AAP_OptionsMainFrame_QuestOptions",  AAP_OptionsMainFrame)
@@ -361,21 +361,32 @@ AAP.OptionsFrame.MainFrame.OptionsQuests.texture = t
 		end
 	end)	
 	
-	AAP.OptionsFrame.WorldQuestsCheckButton = CreateFrame("CheckButton", "AAP_WorldQuestsCheckButton", AAP.OptionsFrame.MainFrame.OptionsQuests, "ChatConfigCheckButtonTemplate");
-	AAP.OptionsFrame.WorldQuestsCheckButton:SetPoint("TOPLEFT", AAP.OptionsFrame.MainFrame.OptionsQuests, "TOPLEFT", 10, -210)
-	if (AAP1[AAP.Realm][AAP.Name]["Settings"]["WQs"] == 0) then
-		AAP.OptionsFrame.WorldQuestsCheckButton:SetChecked(false)
-	else
-		AAP.OptionsFrame.WorldQuestsCheckButton:SetChecked(true)
-	end
-	getglobal(AAP.OptionsFrame.WorldQuestsCheckButton:GetName() .. 'Text'):SetText(": World Quests")
-	getglobal(AAP.OptionsFrame.WorldQuestsCheckButton:GetName() .. 'Text'):SetTextColor(1, 1, 1)
-	AAP.OptionsFrame.WorldQuestsCheckButton:SetScript("OnClick", function()
-		if (AAP.OptionsFrame.WorldQuestsCheckButton:GetChecked() == true) then
-			AAP1[AAP.Realm][AAP.Name]["Settings"]["WQs"] = 1
-		else
-			AAP1[AAP.Realm][AAP.Name]["Settings"]["WQs"] = 0
-		end
+	AAP.OptionsFrame["ResetQorderL"] = CreateFrame("Button", "AAP_OptionsButtons3", AAP.OptionsFrame.MainFrame.OptionsQuests, "SecureActionButtonTemplate")
+	AAP.OptionsFrame["ResetQorderL"]:SetPoint("TOPLEFT", AAP.OptionsFrame.MainFrame.OptionsQuests, "TOPLEFT", 10, -210)
+	AAP.OptionsFrame["ResetQorderL"]:SetWidth(150)
+	AAP.OptionsFrame["ResetQorderL"]:SetHeight(30)
+	AAP.OptionsFrame["ResetQorderL"]:SetText("Reset QuestOrderList")
+	AAP.OptionsFrame["ResetQorderL"]:SetParent(AAP.OptionsFrame.MainFrame.OptionsQuests)
+	AAP.OptionsFrame.ResetQorderL:SetFrameStrata("HIGH")
+	AAP.OptionsFrame.ResetQorderL:SetNormalFontObject("GameFontNormal")
+	AAP.OptionsFrame.ResetQorderLntex = AAP.OptionsFrame.ResetQorderL:CreateTexture()
+	AAP.OptionsFrame.ResetQorderLntex:SetTexture("Interface/Buttons/UI-Panel-Button-Up")
+	AAP.OptionsFrame.ResetQorderLntex:SetTexCoord(0, 0.625, 0, 0.6875)
+	AAP.OptionsFrame.ResetQorderLntex:SetAllPoints()	
+	AAP.OptionsFrame.ResetQorderL:SetNormalTexture(AAP.OptionsFrame.ResetQorderLntex)
+	AAP.OptionsFrame.ResetQorderLhtex = AAP.OptionsFrame.ResetQorderL:CreateTexture()
+	AAP.OptionsFrame.ResetQorderLhtex:SetTexture("Interface/Buttons/UI-Panel-Button-Highlight")
+	AAP.OptionsFrame.ResetQorderLhtex:SetTexCoord(0, 0.625, 0, 0.6875)
+	AAP.OptionsFrame.ResetQorderLhtex:SetAllPoints()
+	AAP.OptionsFrame.ResetQorderL:SetHighlightTexture(AAP.OptionsFrame.ResetQorderLhtex)
+	AAP.OptionsFrame.ResetQorderLptex = AAP.OptionsFrame.ResetQorderL:CreateTexture()
+	AAP.OptionsFrame.ResetQorderLptex:SetTexture("Interface/Buttons/UI-Panel-Button-Down")
+	AAP.OptionsFrame.ResetQorderLptex:SetTexCoord(0, 0.625, 0, 0.6875)
+	AAP.OptionsFrame.ResetQorderLptex:SetAllPoints()
+	AAP.OptionsFrame.ResetQorderL:SetPushedTexture(AAP.OptionsFrame.ResetQorderLptex)
+	AAP.OptionsFrame["ResetQorderL"]:SetScript("OnClick", function(self, arg1)
+		AAP.ZoneQuestOrder:ClearAllPoints()
+		AAP.ZoneQuestOrder:SetPoint("CENTER", UIParent, "CENTER",1,1)
 	end)
 	
 	
@@ -544,7 +555,46 @@ AAP.OptionsFrame.MainFrame.OptionsArrow.texture = t
 	end)
 	AAP.OptionsFrame.ArrowFpsSlider:SetValue(AAP1[AAP.Realm][AAP.Name]["Settings"]["ArrowFPS"])
 	
-	
+	AAP.OptionsFrame["ResetARrow"] = CreateFrame("Button", "AAP_OptionsButtons3", AAP.OptionsFrame.MainFrame.OptionsArrow, "SecureActionButtonTemplate")
+	AAP.OptionsFrame["ResetARrow"]:SetPoint("TOPLEFT", AAP.OptionsFrame.MainFrame.OptionsArrow, "TOPLEFT", 20, -140)
+	AAP.OptionsFrame["ResetARrow"]:SetWidth(90)
+	AAP.OptionsFrame["ResetARrow"]:SetHeight(30)
+	AAP.OptionsFrame["ResetARrow"]:SetText("Reset Arrow")
+	AAP.OptionsFrame["ResetARrow"]:SetParent(AAP.OptionsFrame.MainFrame.OptionsArrow)
+	AAP.OptionsFrame.ResetARrow:SetFrameStrata("HIGH")
+	AAP.OptionsFrame.ResetARrow:SetNormalFontObject("GameFontNormal")
+	AAP.OptionsFrame.ResetARrowntex = AAP.OptionsFrame.ResetARrow:CreateTexture()
+	AAP.OptionsFrame.ResetARrowntex:SetTexture("Interface/Buttons/UI-Panel-Button-Up")
+	AAP.OptionsFrame.ResetARrowntex:SetTexCoord(0, 0.625, 0, 0.6875)
+	AAP.OptionsFrame.ResetARrowntex:SetAllPoints()	
+	AAP.OptionsFrame.ResetARrow:SetNormalTexture(AAP.OptionsFrame.ResetARrowntex)
+	AAP.OptionsFrame.ResetARrowhtex = AAP.OptionsFrame.ResetARrow:CreateTexture()
+	AAP.OptionsFrame.ResetARrowhtex:SetTexture("Interface/Buttons/UI-Panel-Button-Highlight")
+	AAP.OptionsFrame.ResetARrowhtex:SetTexCoord(0, 0.625, 0, 0.6875)
+	AAP.OptionsFrame.ResetARrowhtex:SetAllPoints()
+	AAP.OptionsFrame.ResetARrow:SetHighlightTexture(AAP.OptionsFrame.ResetARrowhtex)
+	AAP.OptionsFrame.ResetARrowptex = AAP.OptionsFrame.ResetARrow:CreateTexture()
+	AAP.OptionsFrame.ResetARrowptex:SetTexture("Interface/Buttons/UI-Panel-Button-Down")
+	AAP.OptionsFrame.ResetARrowptex:SetTexCoord(0, 0.625, 0, 0.6875)
+	AAP.OptionsFrame.ResetARrowptex:SetAllPoints()
+	AAP.OptionsFrame.ResetARrow:SetPushedTexture(AAP.OptionsFrame.ResetARrowptex)
+	AAP.OptionsFrame["ResetARrow"]:SetScript("OnClick", function(self, arg1)
+		AAP1[AAP.Realm][AAP.Name]["Settings"]["ArrowScale"] = UIParent:GetScale()
+		AAP1[AAP.Realm][AAP.Name]["Settings"]["LockArrow"] = 0
+		AAP1[AAP.Realm][AAP.Name]["Settings"]["ArrowFPS"] = 2
+		AAP1[AAP.Realm][AAP.Name]["Settings"]["arrowleft"] = GetScreenWidth() / 2.05
+		AAP1[AAP.Realm][AAP.Name]["Settings"]["arrowtop"] = -(GetScreenHeight() / 1.5)
+		AAP.ArrowFrame:SetScale(AAP1[AAP.Realm][AAP.Name]["Settings"]["ArrowScale"])
+		AAP.ArrowFrameM:ClearAllPoints()
+		AAP.ArrowFrameM:SetPoint("TOPLEFT", UIParent, "TOPLEFT", AAP1[AAP.Realm][AAP.Name]["Settings"]["arrowleft"], AAP1[AAP.Realm][AAP.Name]["Settings"]["arrowtop"])
+		AAP.OptionsFrame.ArrowFpsSlider:SetValue(AAP1[AAP.Realm][AAP.Name]["Settings"]["ArrowFPS"])
+		if (AAP1[AAP.Realm][AAP.Name]["Settings"]["LockArrow"] == 0) then
+			AAP.OptionsFrame.LockArrowCheckButton:SetChecked(false)
+		else
+			AAP.OptionsFrame.LockArrowCheckButton:SetChecked(true)
+		end
+		AAP.OptionsFrame.ArrowScaleSlider:SetValue(AAP1[AAP.Realm][AAP.Name]["Settings"]["ArrowScale"] * 100)
+	end)
 	
 	
 ------------------------- General Options --------------------------------------------------------------------------
@@ -713,6 +763,27 @@ AAP.OptionsFrame.MainFrame.OptionsGeneral.texture = t
 			AAP1[AAP.Realm][AAP.Name]["Settings"]["AutoGossip"] = 0
 		end
 	end)
+
+
+
+
+	AAP.OptionsFrame.AutoFlightCheckButton = CreateFrame("CheckButton", "AAP_AutoFlightCheckButton", AAP.OptionsFrame.MainFrame.OptionsGeneral, "ChatConfigCheckButtonTemplate");
+	AAP.OptionsFrame.AutoFlightCheckButton:SetPoint("TOPLEFT", AAP.OptionsFrame.MainFrame.OptionsGeneral, "TOPLEFT", 10, -110)
+	if (AAP1[AAP.Realm][AAP.Name]["Settings"]["AutoFlight"] == 0) then
+		AAP.OptionsFrame.AutoFlightCheckButton:SetChecked(false)
+	else
+		AAP.OptionsFrame.AutoFlightCheckButton:SetChecked(true)
+	end
+	getglobal(AAP.OptionsFrame.AutoFlightCheckButton:GetName() .. 'Text'):SetText(": Auto Use Flightpaths")
+	getglobal(AAP.OptionsFrame.AutoFlightCheckButton:GetName() .. 'Text'):SetTextColor(1, 1, 1)
+	AAP.OptionsFrame.AutoFlightCheckButton:SetScript("OnClick", function()
+		if (AAP.OptionsFrame.AutoFlightCheckButton:GetChecked() == true) then
+			AAP1[AAP.Realm][AAP.Name]["Settings"]["AutoFlight"] = 1
+		else
+			AAP1[AAP.Realm][AAP.Name]["Settings"]["AutoFlight"] = 0
+		end
+	end)
+
 
 
 
@@ -937,6 +1008,8 @@ AAP.OptionsFrame.MainFrame.OptionsGeneral.texture = t
 		AAP.OptionsFrame.MainFrame:Hide()
 		AAP.SettingsOpen = 0
 		AAP.BookingList["ClosedSettings"] = 1
+		ToggleFrame(GameMenuFrame)
+		ToggleFrame(GameMenuFrame)
 	end)
 
 	AAP.OptionsFrame["ShowStuffs"] = CreateFrame("Button", "AAP_RoutePlan_FG1_ShowStuffs", AAP.OptionsFrame.MainFrame, "UIPanelButtonTemplate")
@@ -1025,9 +1098,6 @@ AAP.OptionsFrame.MainFrame.OptionsGeneral.texture = t
 	AAP.OptionsFrame["Button3"]:SetScript("OnClick", function(self, arg1)
 		AAP.ResetSettings()
 	end)
-
-
-
 
 end
 

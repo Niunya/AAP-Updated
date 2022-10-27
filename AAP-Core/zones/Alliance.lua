@@ -6287,6 +6287,9 @@ AAP.QuestStepListListingZone = {
 	
 	["Legion - Azsuna"] = 630,
 	["Legion - Val'Sharah"] = 641,
+	["Legion - Stormheim"] = 634,
+	
+	["DEV - StoryMode Only (Not Enough XP)"] = 1670,
 }
 AAP.QuestStepListListing = {}
 AAP.QuestStepListListing["Shadowlands"] = {
@@ -6298,6 +6301,8 @@ AAP.QuestStepListListing["Shadowlands"] = {
 	["A539-DesMephisto-Shadowmoon2"] = "(6/8) 10-50 Shadowmoon",
 	["A535-DesMephisto-Talador2"] = "(7/8) 10-50 Talador",
 	["A542-DesMephisto-SpiresOfArak"] = "(8/8) 10-50 Spires of Arak",
+	
+	["Shadowlands-StoryOnly-A"] = "DEV - StoryMode Only (Not Enough XP)",
 }
 if (AAP.Level < 33) then
 	AAP.QuestStepListListing["Shadowlands"]["1409-Exile's Reach"] = "01-10 Exile's Reach"
@@ -6322,7 +6327,7 @@ AAP.QuestStepListListing["Kalimdor"] = {
 	["A57-Teldrassil"] = "01-30 Teldrassil (Full)",
 	["A630-Azsuna"] = "Legion - Azsuna",
 	["A641-ValSharah"] = "Legion - Val'Sharah",
-
+	["A634-Stormheim"] = "Legion - Stormheim",
 }
 AAP.QuestStepListListing["SpeedRun"] = {
 	["1648-Z0-TheMaw-Story"] = "Z-00-TheMaw-Story",
@@ -6341,6 +6346,8 @@ AAP.QuestStepListListing["SpeedRun"] = {
 	["1543-Z13-TheMaw-Story"] = "Z-13-The Maw-Story",
 	["1525-Z14-Revendreth-Story"] = "Z-14-Revendreth-Story",
 	["1671-Z15-Oribos-Story"] = "Z-15-Oribos-Story",
+	
+	
 	
 	["1533-Bastion-NonStoryMode-1"] = "Test1",
 	
