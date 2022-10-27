@@ -6,6 +6,7 @@ Original Addon at: https://www.curseforge.com/wow/addons/azeroth-auto-pilot by <
 From the Special Thanks section:
 
 --
+
 Special Thanks
 
 BrutallStatic(https://www.twitch.tv/brutallstatic) - Twitch streamer who helped me alot with routes and testing for 50-60, you should check his stream out.
@@ -17,4 +18,4 @@ DesMephisto(https://www.twitch.tv/desmephisto) - Works alot on leveling routes h
 --
 
 I hope I have given the proper credit, I'm a big fan of this addon and just wanted to see it working again. 
-If you're the original author (zyrrael) and want this removed, please let me know. This is my first time doing a repo so I'm unsure of whether or not this is okay or not. 
+If you're the original author (zyrrael) and want this removed, please let me know. This is my first time doing a repo so I'm unsure of whether this is okay or not. 
