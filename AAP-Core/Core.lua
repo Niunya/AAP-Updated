@@ -219,6 +219,135 @@ function AAP.AutoPathOnBeta(ChoiceZ)
 	AAP.CheckPosMove()
 	AAP.BookingList["UpdateMapId"] = 1
 end
+
+function AAP.AutoPathLegion(ChoiceZ)
+	local ZeMap = C_Map.GetBestMapForUnit("player")
+	local currentMapId, TOP_MOST = C_Map.GetBestMapForUnit('player'), true
+	if (Enum and Enum.UIMapType and Enum.UIMapType.Continent and currentMapId) then
+		ZeMap = MapUtil.GetMapParentInfo(currentMapId, Enum.UIMapType.Continent+1, TOP_MOST)
+	end
+	if (ZeMap and ZeMap["mapID"]) then
+		ZeMap = ZeMap["mapID"]
+	else
+		ZeMap = C_Map.GetBestMapForUnit("player")
+	end
+	if (ChoiceZ == 1 and (ZeMap == 1409 or ZeMap == 1726 or ZeMap == 1727 or ZeMap == 1728) and AAP.Faction == "Alliance") then
+		AAP_Custom[AAP.Name.."-"..AAP.Realm] = nil
+		AAP_Custom[AAP.Name.."-"..AAP.Realm] = {}
+		for CLi = 1, 19 do
+			AAP.RoutePlan.FG1["Fxz2Custom"..CLi]["FS"]:SetText("")
+			AAP.RoutePlan.FG1["Fxz2Custom"..CLi]:Hide()
+		end
+		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Azsuna")
+		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Stormhelm")
+		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Val'Sharah")
+	elseif (ChoiceZ == 1 and AAP.Level < 50 and AAP.Level > 9 and AAP.Faction == "Alliance") then
+		AAP_Custom[AAP.Name.."-"..AAP.Realm] = nil
+		AAP_Custom[AAP.Name.."-"..AAP.Realm] = {}
+		for CLi = 1, 19 do
+			AAP.RoutePlan.FG1["Fxz2Custom"..CLi]["FS"]:SetText("")
+			AAP.RoutePlan.FG1["Fxz2Custom"..CLi]:Hide()
+		end
+		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Azsuna")
+		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Stormhelm")
+		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Val'Sharah")
+	elseif (ChoiceZ == 1 and (ZeMap == 1409 or ZeMap == 1726 or ZeMap == 1727 or ZeMap == 1728) and AAP.Faction == "Horde") then
+		AAP_Custom[AAP.Name.."-"..AAP.Realm] = nil
+		AAP_Custom[AAP.Name.."-"..AAP.Realm] = {}
+		for CLi = 1, 19 do
+			AAP.RoutePlan.FG1["Fxz2Custom"..CLi]["FS"]:SetText("")
+			AAP.RoutePlan.FG1["Fxz2Custom"..CLi]:Hide()
+		end
+		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Azsuna")
+		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Stormhelm")
+		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Val'Sharah")
+	elseif (ChoiceZ == 1 and AAP.Level < 50 and AAP.Level > 9 and AAP.Faction == "Horde") then
+		AAP_Custom[AAP.Name.."-"..AAP.Realm] = nil
+		AAP_Custom[AAP.Name.."-"..AAP.Realm] = {}
+		for CLi = 1, 19 do
+			AAP.RoutePlan.FG1["Fxz2Custom"..CLi]["FS"]:SetText("")
+			AAP.RoutePlan.FG1["Fxz2Custom"..CLi]:Hide()
+		end
+		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Azsuna")
+		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Stormhelm")
+		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Val'Sharah")
+	elseif (ZeMap == 1409 or ZeMap == 1726 or ZeMap == 1727) then
+		AAP_Custom[AAP.Name.."-"..AAP.Realm] = nil
+		AAP_Custom[AAP.Name.."-"..AAP.Realm] = {}
+	elseif (ChoiceZ == 1) then
+		AAP_Custom[AAP.Name.."-"..AAP.Realm] = nil
+		AAP_Custom[AAP.Name.."-"..AAP.Realm] = {}
+		for CLi = 1, 19 do
+			AAP.RoutePlan.FG1["Fxz2Custom"..CLi]["FS"]:SetText("")
+			AAP.RoutePlan.FG1["Fxz2Custom"..CLi]:Hide()
+		end
+	elseif (ChoiceZ == 2) then
+		AAP_Custom[AAP.Name.."-"..AAP.Realm] = nil
+		AAP_Custom[AAP.Name.."-"..AAP.Realm] = {}
+		for CLi = 1, 19 do
+			AAP.RoutePlan.FG1["Fxz2Custom"..CLi]["FS"]:SetText("")
+			AAP.RoutePlan.FG1["Fxz2Custom"..CLi]:Hide()
+		end
+		if (C_QuestLog.IsQuestFlaggedCompleted(59770) == false) then
+			tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"50 The Maw Intro")
+		end
+		if (C_QuestLog.IsQuestFlaggedCompleted(59773) == false) then
+			tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"50-50 Oribos (Start-Bastion)")
+		end
+		if (C_QuestLog.IsQuestFlaggedCompleted(60056) == false) then
+			tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"50-52 Bastion (Full)")
+		end
+		if (C_QuestLog.IsQuestFlaggedCompleted(57386) == false) then
+			tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"52 Oribos (Bastion-Maldraxxus)")
+		end
+		if (C_QuestLog.IsQuestFlaggedCompleted(59874) == false) then
+			tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"52-54 Maldraxxus (Full)")
+		end
+		if (C_QuestLog.IsQuestFlaggedCompleted(59897) == false) then
+			tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"54 Oribos (Maldraxxus-Maw)")
+		end
+		if (C_QuestLog.IsQuestFlaggedCompleted(61190) == false) then
+			tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"54-55 The Maw")
+		end
+		if (C_QuestLog.IsQuestFlaggedCompleted(59974) == false) then
+			tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"55 Oribos (Maw-Maldraxxus)")
+		end
+		if (C_QuestLog.IsQuestFlaggedCompleted(60737) == false) then
+			tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"55-55 Maldraxxus")
+		end
+		if (C_QuestLog.IsQuestFlaggedCompleted(60338) == false) then
+			tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"56 Oribos (Maldrax-Ardenw)")
+		end
+		if (C_QuestLog.IsQuestFlaggedCompleted(58724) == false) then
+			tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"56-57 Ardenweald (Full)")
+		end
+		if (C_QuestLog.IsQuestFlaggedCompleted(57025) == false) then
+			tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"57 Oribos (Ardenw-Revend)")
+		end
+		if (C_QuestLog.IsQuestFlaggedCompleted(57689) == false) then
+			tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"57-60 Revendreth (Full)")
+		end
+	end
+	for CLi = 1, 19 do
+		if (AAP_Custom[AAP.Name.."-"..AAP.Realm] and AAP_Custom[AAP.Name.."-"..AAP.Realm][CLi]) then
+			if (AAP_ZoneComplete[AAP.Name.."-"..AAP.Realm][AAP_Custom[AAP.Name.."-"..AAP.Realm][CLi]]) then
+				AAP.RoutePlan.FG1["Fxz2Custom"..CLi]["FS"]:SetText("")
+				AAP.RoutePlan.FG1["Fxz2Custom"..CLi]:Hide()
+			else
+				AAP.RoutePlan.FG1["Fxz2Custom"..CLi]["FS"]:SetText(AAP_Custom[AAP.Name.."-"..AAP.Realm][CLi])
+				AAP.RoutePlan.FG1["Fxz2Custom"..CLi]:Show()
+			end
+		else
+			AAP.RoutePlan.FG1["Fxz2Custom"..CLi]["FS"]:SetText("")
+			AAP.RoutePlan.FG1["Fxz2Custom"..CLi]:Hide()
+		end
+	end
+	AAP1[AAP.Realm][AAP.Name]["Settings"]["Beta1"] = 1
+	AAP.RoutePlanCheckPos()
+	AAP.CheckPosMove()
+	AAP.BookingList["UpdateMapId"] = 1
+end
+
 function AAP.getContinent()
 	if (AAP1["Debug"]) then
 		print("Function: AAP.getContinent()")
@@ -584,7 +713,7 @@ function AAP.RoutePlanLoadIn()
 	AAP.LoadInOptionFrame["B2"]:SetWidth(140)
 	AAP.LoadInOptionFrame["B2"]:SetHeight(30)
 	AAP.LoadInOptionFrame["B2"]:SetText("All Quests")
-AAP.LoadInOptionFrame["B2"]:Hide()
+	AAP.LoadInOptionFrame["B2"]:Hide()
 	AAP.LoadInOptionFrame["B2"]:SetPoint("TOPRIGHT", AAP.LoadInOptionFrame, "TOPRIGHT", -20, -35)
 	AAP.LoadInOptionFrame["B2"]:SetNormalFontObject("GameFontNormalLarge")
 	AAP.LoadInOptionFrame["B2"]:SetScript("OnMouseUp", function(self, button)
@@ -597,7 +726,7 @@ AAP.LoadInOptionFrame["B2"]:Hide()
 	AAP.LoadInOptionFrame["B3"]:SetWidth(140)
 	AAP.LoadInOptionFrame["B3"]:SetHeight(30)
 	AAP.LoadInOptionFrame["B3"]:SetText("Custom Path")
-	AAP.LoadInOptionFrame["B3"]:SetPoint("BOTTOM", AAP.LoadInOptionFrame, "BOTTOM", 0, 25)
+	AAP.LoadInOptionFrame["B3"]:SetPoint("BOTTOMRIGHT", AAP.LoadInOptionFrame, "BOTTOMRIGHT", 0, 25)
 	AAP.LoadInOptionFrame["B3"]:SetNormalFontObject("GameFontNormalLarge")
 	AAP.LoadInOptionFrame["B3"]:SetScript("OnMouseUp", function(self, button)
 		if button == "LeftButton" then
@@ -606,7 +735,18 @@ AAP.LoadInOptionFrame["B2"]:Hide()
 		end
 	end)
 	
-
+	AAP.LoadInOptionFrame["B4"] = CreateFrame("Button", "AAP_LoadInOptionFrameButton1", AAP.LoadInOptionFrame, "UIPanelButtonTemplate")
+	AAP.LoadInOptionFrame["B4"]:SetWidth(140)
+	AAP.LoadInOptionFrame["B4"]:SetHeight(30)
+	AAP.LoadInOptionFrame["B4"]:SetText("Legion")
+	AAP.LoadInOptionFrame["B4"]:SetPoint("LEFT", AAP.LoadInOptionFrame, "LEFT", 20, -35)
+	AAP.LoadInOptionFrame["B4"]:SetNormalFontObject("GameFontNormalLarge")
+	AAP.LoadInOptionFrame["B4"]:SetScript("OnMouseUp", function(self, button)
+		if button == "LeftButton" then
+			AAP.AutoPathLegion(1)
+			AAP.LoadInOptionFrame:Hide()
+		end
+	end)
 
 
 	AAP.RoutePlan = CreateFrame("frame", "AAP.RoutePlanMainFraexg1", UIParent)
