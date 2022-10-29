@@ -239,7 +239,7 @@ function AAP.AutoPathLegion(ChoiceZ)
 			AAP.RoutePlan.FG1["Fxz2Custom"..CLi]:Hide()
 		end
 		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Azsuna")
-		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Stormhelm")
+		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Stormheim")
 		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Val'Sharah")
 	elseif (ChoiceZ == 1 and AAP.Level < 50 and AAP.Level > 9 and AAP.Faction == "Alliance") then
 		AAP_Custom[AAP.Name.."-"..AAP.Realm] = nil
@@ -249,7 +249,7 @@ function AAP.AutoPathLegion(ChoiceZ)
 			AAP.RoutePlan.FG1["Fxz2Custom"..CLi]:Hide()
 		end
 		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Azsuna")
-		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Stormhelm")
+		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Stormheim")
 		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Val'Sharah")
 	elseif (ChoiceZ == 1 and (ZeMap == 1409 or ZeMap == 1726 or ZeMap == 1727 or ZeMap == 1728) and AAP.Faction == "Horde") then
 		AAP_Custom[AAP.Name.."-"..AAP.Realm] = nil
@@ -259,7 +259,7 @@ function AAP.AutoPathLegion(ChoiceZ)
 			AAP.RoutePlan.FG1["Fxz2Custom"..CLi]:Hide()
 		end
 		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Azsuna")
-		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Stormhelm")
+		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Stormheim")
 		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Val'Sharah")
 	elseif (ChoiceZ == 1 and AAP.Level < 50 and AAP.Level > 9 and AAP.Faction == "Horde") then
 		AAP_Custom[AAP.Name.."-"..AAP.Realm] = nil
@@ -269,7 +269,7 @@ function AAP.AutoPathLegion(ChoiceZ)
 			AAP.RoutePlan.FG1["Fxz2Custom"..CLi]:Hide()
 		end
 		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Azsuna")
-		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Stormhelm")
+		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Stormheim")
 		tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"Legion - Val'Sharah")
 	elseif (ZeMap == 1409 or ZeMap == 1726 or ZeMap == 1727) then
 		AAP_Custom[AAP.Name.."-"..AAP.Realm] = nil
@@ -1657,25 +1657,6 @@ AAP.RoutePlan.FG1["Fxz2Custom"..CLi].texture = t
 				AAP.RoutePlan.FG1["Fxz2Custom"..CLi]["FS"]:SetText("")
 				AAP.RoutePlan.FG1["Fxz2Custom"..CLi]:Hide()
 			else
-				if (AAP_Custom[AAP.Name.."-"..AAP.Realm] and AAP_Custom[AAP.Name.."-"..AAP.Realm][CLi]) then
-					local zew = AAP.QuestStepListListingZone[AAP_Custom[AAP.Name.."-"..AAP.Realm][CLi]]
-					if (AAP["EasternKingdomDB"] and AAP["EasternKingdomDB"][zew] and IsAddOnLoaded("AAP-EasternKingdoms") == false) then
-						local loaded, reason = LoadAddOn("AAP-EasternKingdoms")
-						if (not loaded) then
-							if (reason == "DISABLED") then
-								print("AAP: AAP - Eastern Kingdoms is Disabled in your Addon-List!")
-							end
-						end
-					end
-					if (AAP["ShadowlandsDB"] and AAP["ShadowlandsDB"][zew] and IsAddOnLoaded("AAP-Shadowlands") == false) then
-						local loaded, reason = LoadAddOn("AAP-Shadowlands")
-						if (not loaded) then
-							if (reason == "DISABLED") then
-								print("AAP: AAP - Shadowlands is Disabled in your Addon-List!")
-							end
-						end
-					end
-				end
 				AAP.RoutePlan.FG1["Fxz2Custom"..CLi]["FS"]:SetText(AAP_Custom[AAP.Name.."-"..AAP.Realm][CLi])
 				AAP.RoutePlan.FG1["Fxz2Custom"..CLi]:Show()
 			end
@@ -2014,22 +1995,6 @@ function AAP.CheckPosMove(zeActivz)
 		end
 		if (AAP_Custom[AAP.Name.."-"..AAP.Realm] and AAP_Custom[AAP.Name.."-"..AAP.Realm][CLi]) then
 			local zew = AAP.QuestStepListListingZone[AAP_Custom[AAP.Name.."-"..AAP.Realm][CLi]]
-			if (AAP["EasternKingdomDB"] and AAP["EasternKingdomDB"][zew] and IsAddOnLoaded("AAP-EasternKingdoms") == false) then
-				local loaded, reason = LoadAddOn("AAP-EasternKingdoms")
-				if (not loaded) then
-					if (reason == "DISABLED") then
-						print("AAP: AAP - Eastern Kingdoms is Disabled in your Addon-List!")
-					end
-				end
-			end
-			if (AAP["ShadowlandsDB"] and AAP["ShadowlandsDB"][zew] and IsAddOnLoaded("AAP-Shadowlands") == false) then
-				local loaded, reason = LoadAddOn("AAP-Shadowlands")
-				if (not loaded) then
-					if (reason == "DISABLED") then
-						print("AAP: AAP - Shadowlands is Disabled in your Addon-List!")
-					end
-				end
-			end
 		end
 	end
 	for CLi = 1, zenr4 do
@@ -2048,17 +2013,6 @@ function AAP.CheckPosMove(zeActivz)
 				AAP.ActiveMap = nil
 			else
 				AAP.RoutePlan.FG1["Fx3z"..CLi]:Show()
-			end
-		end
-		if (AAP_Custom[AAP.Name.."-"..AAP.Realm] and AAP_Custom[AAP.Name.."-"..AAP.Realm][CLi]) then
-			local zew = AAP.QuestStepListListingZone[AAP_Custom[AAP.Name.."-"..AAP.Realm][CLi]]
-			if (AAP["ShadowlandsDB"] and AAP["ShadowlandsDB"][zew] and IsAddOnLoaded("AAP-Shadowlands") == false) then
-				local loaded, reason = LoadAddOn("AAP-Shadowlands")
-				if (not loaded) then
-					if (reason == "DISABLED") then
-						print("AAP: AAP - Shadowlands is Disabled in your Addon-List!")
-					end
-				end
 			end
 		end
 	end
@@ -2313,7 +2267,7 @@ AAP.CoreEventFrame:SetScript("OnEvent", function(self, event, ...)
 				else
 					AAP.LoadInOptionFrame:Hide()
 				end
-				print("AAP Loaded")
+				print("AAP - Updated Loaded")
 				AAP_LoadInTimer:Stop()
 				C_Timer.After(4, AAP_UpdatezeMapId)
 				C_Timer.After(5, AAP_BookQStep)

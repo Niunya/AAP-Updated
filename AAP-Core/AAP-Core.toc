@@ -3,7 +3,7 @@
 ## Title: AAP - Core
 ## Notes: Leveling Addon
 ## Author: Zyrrael
-## Version: 0.10
+## Version: 0.11
 ## SavedVariables: AAP1, AAP2, AAP3, AAPQuestNames, AAP_HoldZoneVar, AAP_Transport, AAP_Custom, AAP_ZoneComplete, AAP_TaxiTimers
 lib\HereBeDragons\LibStub\LibStub.lua
 lib\HereBeDragons\CallbackHandler-1.0\CallbackHandler-1.0.xml
@@ -35,6 +35,9 @@ zones\Horde-MoP.lua
 zones\Horde-WoD.lua
 zones\Horde-BfA.lua
 zones\Horde-Legion.lua
+zones\Shadowlands.lua
+zones\EasternKingdoms.lua
+zones\Shadowlands-NonStory.lua
 Minimap.lua
 QuestTest.lua
 Transport.lua
