@@ -585,19 +585,28 @@ AAP.ButtonList = {}
 AAP.BreadCrumSkips = {}
 AAP.SetButtonVar = nil
 AAP.ButtonVisual = nil
+
 local function AAP_SettingsButtons()
 	local CLi
 	for CLi = 1, 3 do
 		local CL_Items, clt2, clt3, clt4, clt5, clt6, clt7, clt8, clt9, CL_ItemTex = GetItemInfo(6948)
-		AAP.QuestList2["BF"..CLi]["AAP_Buttonptex"]:SetTexture(CL_ItemTex)
-		AAP.QuestList2["BF"..CLi]["AAP_Buttonntex"]:SetTexture(CL_ItemTex)
-		AAP.QuestList2["BF"..CLi]["AAP_Button"]:SetNormalTexture(CL_ItemTex)
+		local Icon = C_Item.GetItemIconByID(6948)
+		if 	CL_ItemTex ~= nil then
+			--event == GET_ITEM_INFO_RECEIVED then 
+			--print("NORMAL FIRE") 
+			AAP.QuestList2["BF"..CLi]["AAP_Buttonptex"]:SetTexture(CL_ItemTex)
+			AAP.QuestList2["BF"..CLi]["AAP_Buttonntex"]:SetTexture(CL_ItemTex)		
+			AAP.QuestList2["BF"..CLi]["AAP_Button"]:SetNormalTexture(CL_ItemTex)
+		--else 
+			--AAP.QuestList2["BF"..CLi]["AAP_Button"]:SetScript("OnEvent", CheckForItemInfo)
+		end
 		AAP.QuestList2["BF"..CLi]["AAP_Button"]:SetText("")
 		local Topz = AAP1[AAP.Realm][AAP.Name]["Settings"]["left"]
 		local Topz2 = AAP1[AAP.Realm][AAP.Name]["Settings"]["top"]
 		AAP.QuestList20:SetPoint("TOPLEFT", UIParent, "TOPLEFT", Topz, Topz2)
 		AAP.QuestList2["BF"..CLi]:SetPoint("BOTTOMLEFT", AAP.QuestList21, "BOTTOMLEFT",0,-((CLi * 38)+CLi))
 		AAP.QuestList2["BF"..CLi]:Show()
+		--AAP.QuestList2["BF"..CLi]["AAP_Button"]:SetScript("OnEnter", function(self) GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 	end
 end
 function AAP.ChkBreadcrums(qids)
@@ -3513,8 +3522,19 @@ AAP_QH_EventFrame:RegisterEvent ("PLAYER_CHOICE_UPDATE")
 AAP_QH_EventFrame:RegisterEvent ("REQUEST_CEMETERY_LIST_RESPONSE")
 AAP_QH_EventFrame:RegisterEvent ("AJ_REFRESH_DISPLAY")
 AAP_QH_EventFrame:RegisterEvent ("UPDATE_UI_WIDGET")
+AAP_QH_EventFrame:RegisterEvent ("GET_ITEM_INFO_RECEIVED")
 
 AAP_QH_EventFrame:SetScript("OnEvent", function(self, event, ...)
+	if (event == "GET_ITEM_INFO_RECEIVED") then	
+	--print("EVENT FIRE")
+	local CL_ItemTex = GetItemInfo(6948)
+	local CLi
+		for CLi = 1, 3 do			
+			AAP.QuestList2["BF"..CLi]["AAP_Buttonptex"]:SetTexture(CL_ItemTex)
+			AAP.QuestList2["BF"..CLi]["AAP_Buttonntex"]:SetTexture(CL_ItemTex)		
+			AAP.QuestList2["BF"..CLi]["AAP_Button"]:SetNormalTexture(CL_ItemTex)
+		end
+	end
 	if (event=="UPDATE_UI_WIDGET") then
 		if (AAP.ActiveQuests and AAP.ActiveQuests["57713-4"]) then
 			AAP.BookingList["PrintQStep"] = 1
