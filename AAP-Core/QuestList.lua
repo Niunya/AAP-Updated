@@ -631,6 +631,7 @@ AAP.QuestList.QuestFrames["FS"..CLi]["Button"].texture = t
 		AAP.QuestList2["BF"..CLi]:Hide()
 		AAP.QuestList2["BF"..CLi]:SetParent(AAP.QuestList.ButtonParent)
 		AAP.QuestList2["BF"..CLi]["AAP_Button"] = CreateFrame("Button", "AAP_SBX"..CLi, AAP.QuestList2["BF"..CLi], "SecureActionButtonTemplate")
+		AAP.QuestList2["BF"..CLi]["AAP_Button"]:RegisterForClicks("AnyDown")
 		AAP.QuestList2["BF"..CLi]["AAP_Button"]:SetWidth(38)
 		AAP.QuestList2["BF"..CLi]["AAP_Button"]:SetHeight(38)
 		AAP.QuestList2["BF"..CLi]["AAP_Button"]:SetText("X")
