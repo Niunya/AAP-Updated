@@ -2752,26 +2752,26 @@ function AAP.MacroUpdater2(macroSlot,itemName,aapextra)
 	end
 	if (itemName) then
 		if (itemName == 123123123) then
-			EditMacro("AAP_MACRO","INV_MISC_QUESTIONMARK","#showtooltip\n/click ExtraActionButton1",nil,nil)
+			EditMacro(macroSlot,"AAP_MACRO","INV_MISC_QUESTIONMARK","#showtooltip\n/click ExtraActionButton1",nil,nil)
 		elseif (itemName == 6666666) then
-			EditMacro("AAP_MACRO","INV_MISC_QUESTIONMARK","#showtooltip\n/cast Summon Steward",nil,nil)
+			EditMacro(macroSlot, "AAP_MACRO","INV_MISC_QUESTIONMARK","#showtooltip\n/cast Summon Steward",nil,nil)
 		elseif (aapextra == 65274) then
-			EditMacro("AAP_MACRO","INV_MISC_QUESTIONMARK","#showtooltip\n/script AAP.SaveOldSlot()\n/use "..itemName,nil,nil)
+			EditMacro(macroSlot, "AAP_MACRO","INV_MISC_QUESTIONMARK","#showtooltip\n/script AAP.SaveOldSlot()\n/use "..itemName,nil,nil)
 		else
 			local CurStep = AAP1[AAP.Realm][AAP.Name][AAP.ActiveMap]
 			local steps = AAP.QuestStepList[AAP.ActiveMap][CurStep]
 			if (AAP.DubbleMacro and AAP.DubbleMacro[1] and AAP.DubbleMacro[2] and steps and steps["SpecialDubbleMacro"]) then
-				EditMacro("AAP_MACRO","INV_MISC_QUESTIONMARK","#showtooltip\n/use "..AAP.DubbleMacro[1].."\n/use "..AAP.DubbleMacro[2],nil,nil)
+				EditMacro(macroSlot, "AAP_MACRO","INV_MISC_QUESTIONMARK","#showtooltip\n/use "..AAP.DubbleMacro[1].."\n/use "..AAP.DubbleMacro[2],nil,nil)
 			elseif (steps and steps["SpecialMacro"]) then
-				EditMacro("AAP_MACRO","INV_MISC_QUESTIONMARK","#showtooltip\n/target Serrik\n/use "..itemName,nil,nil)
+				EditMacro(macroSlot, "AAP_MACRO","INV_MISC_QUESTIONMARK","#showtooltip\n/target Serrik\n/use "..itemName,nil,nil)
 			elseif (steps and steps["SpecialMacro2"]) then
-				EditMacro("AAP_MACRO","INV_MISC_QUESTIONMARK","#showtooltip\n/target Hrillik's\n/use "..itemName,nil,nil)
+				EditMacro(macroSlot, "AAP_MACRO","INV_MISC_QUESTIONMARK","#showtooltip\n/target Hrillik's\n/use "..itemName,nil,nil)
 			else
-				EditMacro("AAP_MACRO","INV_MISC_QUESTIONMARK","#showtooltip\n/use "..itemName,nil,nil)
+				EditMacro(macroSlot, "AAP_MACRO","INV_MISC_QUESTIONMARK","#showtooltip\n/use "..itemName,nil,nil)
 			end
 		end
 	else
-		EditMacro("AAP_MACRO","INV_MISC_QUESTIONMARK","/script print('no button yet')",nil,nil)
+		EditMacro(macroSlot, "AAP_MACRO","INV_MISC_QUESTIONMARK","/script print('no button yet')",nil,nil)
 	end
 end
 function AAP.GliderFunc()
@@ -3525,15 +3525,20 @@ AAP_QH_EventFrame:RegisterEvent ("UPDATE_UI_WIDGET")
 AAP_QH_EventFrame:RegisterEvent ("GET_ITEM_INFO_RECEIVED")
 
 AAP_QH_EventFrame:SetScript("OnEvent", function(self, event, ...)
-	if (event == "GET_ITEM_INFO_RECEIVED") then	
+	if (event == "GET_ITEM_INFO_RECEIVED" and "GET_ITEM_INFO_RECEIVED" == false)  then	
 	--print("EVENT FIRE")
 	local CL_ItemTex = GetItemInfo(6948)
+	local Icon = C_Item.GetItemIconByID(6948)
 	local CLi
 		for CLi = 1, 3 do			
 			AAP.QuestList2["BF"..CLi]["AAP_Buttonptex"]:SetTexture(CL_ItemTex)
 			AAP.QuestList2["BF"..CLi]["AAP_Buttonntex"]:SetTexture(CL_ItemTex)		
 			AAP.QuestList2["BF"..CLi]["AAP_Button"]:SetNormalTexture(CL_ItemTex)
+			AAP.QuestList2["BF"..CLi]["AAP_Button"]:SetNormalTexture(Icon)
 		end
+		if (event == "GET_ITEM_INFO_RECEIVED" and GET_ITEM_INFO_RECEIVED == true) then
+		print("Error retrieving icon, function fired for replacing")
+		end	
 	end
 	if (event=="UPDATE_UI_WIDGET") then
 		if (AAP.ActiveQuests and AAP.ActiveQuests["57713-4"]) then
