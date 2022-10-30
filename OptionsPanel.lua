@@ -1043,12 +1043,11 @@ AAP.OptionsFrame.MainFrame.OptionsGeneral.texture = t
 		end
 	end)
 
-
-	AAP.OptionsFrame["Button2"] = CreateFrame("Button", "AAP_OptionsButtons2", AAP.OptionsFrame.MainFrame, "SecureActionButtonTemplate")
-	AAP.OptionsFrame["Button2"]:SetPoint("BOTTOMRIGHT",AAP.OptionsFrame.MainFrame,"BOTTOMRIGHT",-185,5)
-	AAP.OptionsFrame["Button2"]:SetWidth(100)
+	AAP.OptionsFrame["Button2"] = CreateFrame("Button", "AAP_OptionsButtons3", AAP.OptionsFrame.MainFrame, "SecureActionButtonTemplate")
+	AAP.OptionsFrame["Button2"]:SetPoint("BOTTOMRIGHT",AAP.OptionsFrame.MainFrame,"BOTTOMRIGHT",-90,5)
+	AAP.OptionsFrame["Button2"]:SetWidth(70)
 	AAP.OptionsFrame["Button2"]:SetHeight(30)
-	AAP.OptionsFrame["Button2"]:SetText(AAP_Locals["Keybinds"])
+	AAP.OptionsFrame["Button2"]:SetText("Reset")
 	AAP.OptionsFrame["Button2"]:SetParent(AAP.OptionsFrame.MainFrame)
 	AAP.OptionsFrame.Button2:SetFrameStrata("HIGH")
 	AAP.OptionsFrame.Button2:SetNormalFontObject("GameFontNormal")
@@ -1068,15 +1067,14 @@ AAP.OptionsFrame.MainFrame.OptionsGeneral.texture = t
 	AAP.OptionsFrame.Button2ptex:SetAllPoints()
 	AAP.OptionsFrame.Button2:SetPushedTexture(AAP.OptionsFrame.Button2ptex)
 	AAP.OptionsFrame["Button2"]:SetScript("OnClick", function(self, arg1)
-		KeyBindingFrame_LoadUI()
-		KeyBindingFrame:Show()
+		AAP.ResetSettings()
 	end)
-
-	AAP.OptionsFrame["Button3"] = CreateFrame("Button", "AAP_OptionsButtons3", AAP.OptionsFrame.MainFrame, "SecureActionButtonTemplate")
-	AAP.OptionsFrame["Button3"]:SetPoint("BOTTOMRIGHT",AAP.OptionsFrame.MainFrame,"BOTTOMRIGHT",-90,5)
-	AAP.OptionsFrame["Button3"]:SetWidth(70)
+	
+	--[[AAP.OptionsFrame["Button3"] = CreateFrame("Button", "AAP_OptionsButtons2", AAP.OptionsFrame.MainFrame, "SecureActionButtonTemplate")
+	AAP.OptionsFrame["Button3"]:SetPoint("BOTTOMRIGHT",AAP.OptionsFrame.MainFrame,"BOTTOMRIGHT",-185,5)
+	AAP.OptionsFrame["Button3"]:SetWidth(100)
 	AAP.OptionsFrame["Button3"]:SetHeight(30)
-	AAP.OptionsFrame["Button3"]:SetText("Reset")
+	AAP.OptionsFrame["Button3"]:SetText(AAP_Locals["Keybinds"])
 	AAP.OptionsFrame["Button3"]:SetParent(AAP.OptionsFrame.MainFrame)
 	AAP.OptionsFrame.Button3:SetFrameStrata("HIGH")
 	AAP.OptionsFrame.Button3:SetNormalFontObject("GameFontNormal")
@@ -1084,20 +1082,23 @@ AAP.OptionsFrame.MainFrame.OptionsGeneral.texture = t
 	AAP.OptionsFrame.Button3ntex:SetTexture("Interface/Buttons/UI-Panel-Button-Up")
 	AAP.OptionsFrame.Button3ntex:SetTexCoord(0, 0.625, 0, 0.6875)
 	AAP.OptionsFrame.Button3ntex:SetAllPoints()	
-	AAP.OptionsFrame.Button3:SetNormalTexture(AAP.OptionsFrame.Button3ntex)
+	AAP.OptionsFrame.Button3:SetNormalTexture(AAP.OptionsFrame.Button2ntex)
 	AAP.OptionsFrame.Button3htex = AAP.OptionsFrame.Button3:CreateTexture()
 	AAP.OptionsFrame.Button3htex:SetTexture("Interface/Buttons/UI-Panel-Button-Highlight")
 	AAP.OptionsFrame.Button3htex:SetTexCoord(0, 0.625, 0, 0.6875)
 	AAP.OptionsFrame.Button3htex:SetAllPoints()
-	AAP.OptionsFrame.Button3:SetHighlightTexture(AAP.OptionsFrame.Button3htex)
+	AAP.OptionsFrame.Button3:SetHighlightTexture(AAP.OptionsFrame.Button2htex)
 	AAP.OptionsFrame.Button3ptex = AAP.OptionsFrame.Button3:CreateTexture()
 	AAP.OptionsFrame.Button3ptex:SetTexture("Interface/Buttons/UI-Panel-Button-Down")
 	AAP.OptionsFrame.Button3ptex:SetTexCoord(0, 0.625, 0, 0.6875)
 	AAP.OptionsFrame.Button3ptex:SetAllPoints()
 	AAP.OptionsFrame.Button3:SetPushedTexture(AAP.OptionsFrame.Button3ptex)
 	AAP.OptionsFrame["Button3"]:SetScript("OnClick", function(self, arg1)
-		AAP.ResetSettings()
-	end)
+		KeyBindingFrame_LoadUI()
+		KeyBindingFrame:Show()
+	end)]]--
+
+
 
 end
 

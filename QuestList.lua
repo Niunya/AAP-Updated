@@ -502,7 +502,7 @@ AAP.QuestList.QuestFrames["MyProgress"].texture = t
 		AAP["Icons"][CLi]:SetWidth(5)
 		AAP["Icons"][CLi]:SetHeight(5)
 		local t = 	AAP["Icons"][CLi]:CreateTexture(nil,"BACKGROUND")
-		t:SetTexture("Interface\\Addons\\AAP-Core\\Img\\Icon.blp")
+		t:SetTexture("Interface\\Addons\\AAP-Updated\\Img\\Icon.blp")
 		t:SetAllPoints(AAP["Icons"][CLi])
 		AAP["Icons"][CLi].texture = t
 		AAP["Icons"][CLi]:SetPoint("CENTER",0,0)
@@ -517,7 +517,7 @@ AAP.QuestList.QuestFrames["MyProgress"].texture = t
 		AAP["MapIcons"][CLi]:SetWidth(5)
 		AAP["MapIcons"][CLi]:SetHeight(5)
 		local t = 	AAP["MapIcons"][CLi]:CreateTexture(nil,"BACKGROUND")
-		t:SetTexture("Interface\\Addons\\AAP-Core\\Img\\Icon.blp")
+		t:SetTexture("Interface\\Addons\\AAP-Updated\\Img\\Icon.blp")
 		t:SetAllPoints(AAP["MapIcons"][CLi])
 		AAP["MapIcons"][CLi].texture = t
 		AAP["MapIcons"][CLi]:SetPoint("CENTER",0,0)
@@ -807,7 +807,7 @@ AAP.QuestListEventFrame:RegisterEvent ("ADDON_LOADED")
 AAP.QuestListEventFrame:SetScript("OnEvent", function(self, event, ...)
 	if (event=="ADDON_LOADED") then
 		local arg1, arg2, arg3, arg4, arg5 = ...;
-		if (arg1 == "AAP-Core") then
+		if (arg1 == "AAP-Updated") then
 			AAP_CreateQuestList()
 			AAP.QuestListLoadin = 1
 		end

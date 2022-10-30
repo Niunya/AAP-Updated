@@ -23,7 +23,7 @@ AAP.RegisterChat = C_ChatInfo.RegisterAddonMessagePrefix("AAPChat")
 AAP.LastSent = 0
 AAP.GroupListSteps = {}
 AAP.GroupListStepsNr = 1
-AAP.Version = tonumber(GetAddOnMetadata("AAP-Core", "Version"))
+AAP.Version = tonumber(GetAddOnMetadata("AAP-Updated", "Version"))
 local CoreLoadin = 0
 AAP.AfkTimerVar = 0
 AAP.QuestListLoadin = 0
@@ -589,7 +589,7 @@ AAP.ArrowFrame:SetPoint("TOPLEFT", AAP.ArrowFrameM, "TOPLEFT", 0, 0)
 AAP.ArrowFrame:EnableMouse(true)
 AAP.ArrowFrame:SetMovable(true)
 AAP.ArrowFrame.arrow = AAP.ArrowFrame:CreateTexture(nil, "OVERLAY")
-AAP.ArrowFrame.arrow:SetTexture("Interface\\Addons\\AAP-Core\\Img\\Arrow.blp")
+AAP.ArrowFrame.arrow:SetTexture("Interface\\Addons\\AAP-Updated\\Img\\Arrow.blp")
 AAP.ArrowFrame.arrow:SetAllPoints()
 AAP.ArrowFrame.distance = AAP.ArrowFrame:CreateFontString(nil, "ARTWORK", "ChatFontNormal")
 AAP.ArrowFrame.distance:SetFontObject("GameFontNormalSmall")
@@ -2179,7 +2179,7 @@ AAP.CoreEventFrame:RegisterEvent ("CINEMATIC_START")
 AAP.CoreEventFrame:SetScript("OnEvent", function(self, event, ...)
 	if (event=="ADDON_LOADED") then
 		local arg1, arg2, arg3, arg4, arg5 = ...;
-		if (arg1 ~= "AAP-Core") then
+		if (arg1 ~= "AAP-Updated") then
 			return
 		end
 		if (not AAP1) then
