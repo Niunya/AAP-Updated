@@ -20,7 +20,7 @@
 			["SetHS"] = 34398,
 		}, -- [2]
 		{
-			["ExtraLineText"] = "Time to switch timeline at chromie",
+			["ExtraLineText"] = "Select Iron Horde at Chromie",
 			["PickUp"] = {
 				34398, -- [1]
 			},

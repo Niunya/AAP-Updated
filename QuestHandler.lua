@@ -4267,9 +4267,13 @@ AAP_QH_EventFrame:SetScript("OnEvent", function(self, event, ...)
 		if (NumAvailableQuests > 0 and AAP1[AAP.Realm][AAP.Name]["Settings"]["AutoAccept"] == 1 and not IsControlKeyDown()) then
 			if (steps and steps["BlockQuests"]) then
 			elseif (steps and steps["SpecialPickupOrder"]) then
-				C_GossipInfo.SelectAvailableQuest(2)
+				local options = C_GossipInfo.GetAvailableQuests()
+				--C_GossipInfo.SelectOption(options[2].questID)
+				C_GossipInfo.SelectAvailableQuest(options[2].questID)
 			else
-				C_GossipInfo.SelectAvailableQuest(1)
+				local options = C_GossipInfo.GetAvailableQuests()
+				--C_GossipInfo.SelectOption(options[1].questID)
+				C_GossipInfo.SelectAvailableQuest(options[1].questID)
 			end
 		end
 	end

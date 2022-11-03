@@ -160,6 +160,15 @@ function AAP.AutoPathOnBeta(ChoiceZ)
 			AAP.RoutePlan.FG1["Fxz2Custom"..CLi]["FS"]:SetText("")
 			AAP.RoutePlan.FG1["Fxz2Custom"..CLi]:Hide()
 		end
+	--[[if (C_QuestLog.IsQuestFlaggedCompleted(62704) == true and C_QuestLog.IsUnitOnQuest(player, 62716) == true 
+		or C_QuestLog.IsQuestFlaggedCompleted(62716) == true) then
+		AAP.QuestList.MainFrame:ClearAllPoints()
+		AAP.ArrowFrameM:ClearAllPoints()
+		AAP.ZoneQuestOrder:ClearAllPoints()
+		AAP.RoutePlan:ClearAllPoints()
+		AAP.ArrowFrame.arrow:Hide()
+		AAP.AfkFrame:Hide()
+	end]] -- Testing clearing QuestOrder, RoutePlan, etc if player chooses Threads of Fate
 		if (C_QuestLog.IsQuestFlaggedCompleted(59770) == false) then
 			tinsert(AAP_Custom[AAP.Name.."-"..AAP.Realm],"50 The Maw Intro")
 		end
