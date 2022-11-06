@@ -990,8 +990,7 @@ local function AAP_PrintQStep()
 					AAP.QuestList.QuestFrames[LineNr]:SetWidth(410)
 				end
 			end
-		end
-		
+		end		
 		if (AAP.Level > 35 and AAP.Level < 50) then
 			if (AAP.ActiveMap and AAP.QuestStepListListing["Shadowlands"][AAP.ActiveMap]) then
 				local OnTime = 0
@@ -3509,6 +3508,7 @@ AAP_QH_EventFrame:RegisterEvent ("ITEM_PUSH")
 AAP_QH_EventFrame:RegisterEvent ("QUEST_AUTOCOMPLETE")
 AAP_QH_EventFrame:RegisterEvent ("QUEST_ACCEPT_CONFIRM")
 AAP_QH_EventFrame:RegisterEvent ("UNIT_ENTERED_VEHICLE")
+--AAP_QH_EventFrame:RegisterEvent ("CHROME_TIME_OPEN")
 AAP_QH_EventFrame:RegisterEvent ("QUEST_LOG_UPDATE")
 AAP_QH_EventFrame:RegisterEvent ("PLAYER_TARGET_CHANGED")
 AAP_QH_EventFrame:RegisterEvent ("PLAYER_REGEN_ENABLED")
@@ -3691,7 +3691,7 @@ AAP_QH_EventFrame:SetScript("OnEvent", function(self, event, ...)
 		if (CurStep and AAP.QuestStepList and AAP.QuestStepList[AAP.ActiveMap]) then
 			steps = AAP.QuestStepList[AAP.ActiveMap][CurStep]
 		end
-		local Choizs = C_PlayerChoice.GetPlayerChoiceInfo()
+		local Choizs = C_PlayerChoice.GetCurrentPlayerChoiceInfo()
 		if (Choizs) then
 			local choiceID = Choizs["choiceID"]
 			local questionText = Choizs["questionText"]
@@ -3700,10 +3700,11 @@ AAP_QH_EventFrame:SetScript("OnEvent", function(self, event, ...)
 				local CLi
 				for CLi = 1, numOptions do
 					local opzios = C_PlayerChoice.GetPlayerChoiceOptionInfo(CLi)
-					local optionID = opzios["id"]
+					local optionID = opzios["choiceid"]
 					if (steps["Brewery"] == optionID) then
 						--C_PlayerChoice.SendQuestChoiceResponse(GetQuestChoiceOptionInfo(CLi))
-						PlayerChoiceFrame["Option"..CLi]["OptionButtonsContainer"]["button1"]:Click()
+						C_PlayerChoice.SendPlayerChoiceResponse(optionID)
+						--PlayerChoiceFrame["Option"..CLi]["OptionButtonsContainer"]["button1"]:Click()
 						AAP1[AAP.Realm][AAP.Name][AAP.ActiveMap] = AAP1[AAP.Realm][AAP.Name][AAP.ActiveMap] + 1
 						AAP.BookingList["UpdateQuest"] = 1
 						AAP.BookingList["PrintQStep"] = 1
@@ -3714,10 +3715,11 @@ AAP_QH_EventFrame:SetScript("OnEvent", function(self, event, ...)
 			if (numOptions and numOptions > 1 and steps and steps["SparringRing"]) then
 				local CLi
 				for CLi = 1, numOptions do
-					local opzios = C_PlayerChoice.GetPlayerChoiceOptionInfo(CLi)
+					local opzios = C_PlayerChoice.GetCurrentPlayerChoiceInfo(CLi)
 					local optionID = opzios["id"]
 					if (steps["SparringRing"] == optionID) then
-						PlayerChoiceFrame["Option"..CLi]["OptionButtonsContainer"]["button1"]:Click()
+						C_PlayerChoice.SendPlayerChoiceResponse(optionID)
+						--PlayerChoiceFrame["Option"..CLi]["OptionButtonsContainer"]["button1"]:Click()
 						AAP1[AAP.Realm][AAP.Name][AAP.ActiveMap] = AAP1[AAP.Realm][AAP.Name][AAP.ActiveMap] + 1
 						AAP.BookingList["UpdateQuest"] = 1
 						AAP.BookingList["PrintQStep"] = 1
@@ -4260,7 +4262,7 @@ AAP_QH_EventFrame:SetScript("OnEvent", function(self, event, ...)
 		if (ActiveQuests and AAP1[AAP.Realm][AAP.Name]["Settings"]["AutoHandIn"] == 1 and not IsControlKeyDown()) then
 			for CLi = 1, ActiveQNr do
 				if (ActiveQuests[CLi] and ActiveQuests[CLi]["isComplete"] == true) then
-					C_GossipInfo.SelectActiveQuest(CLi)
+					C_GossipInfo.SelectActiveQuest(ActiveQuests[CLi].questID)
 				end
 			end
 		end

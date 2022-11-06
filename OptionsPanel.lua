@@ -37,21 +37,26 @@ AAP_panel.Button1:SetScript("OnClick", function(self, arg1)
 end)
 function AAP.LoadOptionsFrame()
 	AAP.OptionsFrame = {}
-	AAP.OptionsFrame.MainFrame = CreateFrame("frame", "AAP_OptionsMainFrame",  UIParent)
+	--AAP.OptionsFrame.MainFrame = CreateFrame("frame", "AAP_OptionsMainFrame",  UIParent)
+	AAP.OptionsFrame.MainFrame = CreateFrame("Frame", "AAP_OptionsMainFrame", self, BackdropTemplateMixin and "BackdropTemplate")
 	AAP.OptionsFrame.MainFrame:SetWidth(450)
 	AAP.OptionsFrame.MainFrame:SetHeight(360)
 	AAP.OptionsFrame.MainFrame:SetFrameStrata("MEDIUM")
 	AAP.OptionsFrame.MainFrame:SetPoint("CENTER",  UIParent, "CENTER",0,0)
 	AAP.OptionsFrame.MainFrame:SetMovable(true)
 	AAP.OptionsFrame.MainFrame:EnableMouse(true)
-	--AAP.OptionsFrame.MainFrame:SetBackdrop( { 
-	--	bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background", 
-	--	edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-	--	tile = true, tileSize = 10, edgeSize = 10, insets = { left = 2, right = 2, top = 2, bottom = 2 }
-	--});
-local t = AAP.OptionsFrame.MainFrame:CreateTexture(nil,"BACKGROUND")
-t:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Background")
-t:SetAllPoints(AAP.OptionsFrame.MainFrame)
+	AAP.OptionsFrame.MainFrame:SetBackdrop({
+		bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
+		edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+		tile = true,
+		tileEdge = true,
+		tileSize = 28,
+		edgeSize = 34,
+		insets = { left = 11, right = 12, top = 12, bottom = 11 },
+	})
+--local t = AAP.OptionsFrame.MainFrame:CreateTexture(nil,"BACKGROUND")
+--t:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Background")
+--t:SetAllPoints(AAP.OptionsFrame.MainFrame)
 AAP.OptionsFrame.MainFrame.texture = t
 
 	AAP.OptionsFrame.MainFrame:SetScript("OnMouseDown", function(self, button)
@@ -87,9 +92,9 @@ AAP.OptionsFrame.MainFrame.texture = t
 	--	edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
 	--	tile = true, tileSize = 10, edgeSize = 10, insets = { left = 2, right = 2, top = 2, bottom = 2 }
 	--});
-local t = AAP.OptionsFrame.MainFrame.Options:CreateTexture(nil,"BACKGROUND")
-t:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Background")
-t:SetAllPoints(AAP.OptionsFrame.MainFrame.Options)
+--local t = AAP.OptionsFrame.MainFrame.Options:CreateTexture(nil,"BACKGROUND")
+--t:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Background")
+--t:SetAllPoints(AAP.OptionsFrame.MainFrame.Options)
 AAP.OptionsFrame.MainFrame.Options.texture = t
 
 	AAP.OptionsFrame.MainFrame.Options:SetScript("OnMouseDown", function(self, button)
@@ -112,7 +117,7 @@ AAP.OptionsFrame.MainFrame.Options.texture = t
 	end)
 	AAP.OptionsFrame.FontString1 = AAP.OptionsFrame.MainFrame:CreateFontString("AAPSettingsFS1","ARTWORK", "ChatFontNormal")
 	AAP.OptionsFrame.FontString1:SetParent(AAP.OptionsFrame.MainFrame)
-	AAP.OptionsFrame.FontString1:SetPoint("TOP",AAP.OptionsFrame.MainFrame,"TOP",0,0)
+	AAP.OptionsFrame.FontString1:SetPoint("TOP",AAP.OptionsFrame.MainFrame,"TOP",0,-10)
 	AAP.OptionsFrame.FontString1:SetWidth(240)
 	AAP.OptionsFrame.FontString1:SetHeight(20)
 	AAP.OptionsFrame.FontString1:SetFontObject("GameFontHighlightLarge")
@@ -120,7 +125,7 @@ AAP.OptionsFrame.MainFrame.Options.texture = t
 	AAP.OptionsFrame.FontString1:SetTextColor(1, 1, 0)
 	AAP.OptionsFrame.FontString2 = AAP.OptionsFrame.MainFrame:CreateFontString("AAPSettingsFS1","ARTWORK", "ChatFontNormal")
 	AAP.OptionsFrame.FontString2:SetParent(AAP.OptionsFrame.MainFrame)
-	AAP.OptionsFrame.FontString2:SetPoint("BOTTOM",AAP.OptionsFrame.FontString1,"BOTTOM",0,-15)
+	AAP.OptionsFrame.FontString2:SetPoint("BOTTOM",AAP.OptionsFrame.FontString1,"BOTTOM",0,-20)
 	AAP.OptionsFrame.FontString2:SetWidth(240)
 	AAP.OptionsFrame.FontString2:SetHeight(20)
 	AAP.OptionsFrame.FontString2:SetFontObject("GameFontHighlight")
@@ -131,17 +136,17 @@ AAP.OptionsFrame.MainFrame.Options.texture = t
 	AAP.OptionsFrame.MainFrame.OptionsB1:SetWidth(150)
 	AAP.OptionsFrame.MainFrame.OptionsB1:SetHeight(30)
 	AAP.OptionsFrame.MainFrame.OptionsB1:SetFrameStrata("HIGH")
-	AAP.OptionsFrame.MainFrame.OptionsB1:SetPoint("TOPLEFT",  AAP_OptionsMainFrame, "TOPLEFT",0,-40)
+	AAP.OptionsFrame.MainFrame.OptionsB1:SetPoint("TOPLEFT",  AAP_OptionsMainFrame, "TOPLEFT",0,-50)
 	AAP.OptionsFrame.MainFrame.OptionsB1:SetMovable(true)
 	AAP.OptionsFrame.MainFrame.OptionsB1:EnableMouse(true)
 	--AAP.OptionsFrame.MainFrame.OptionsB1:SetBackdrop( { 
 	--	bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background", 
 	--	edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
 	--	tile = true, tileSize = 10, edgeSize = 10, insets = { left = 2, right = 2, top = 2, bottom = 2 }
-	--});
-local t = AAP.OptionsFrame.MainFrame.OptionsB1:CreateTexture(nil,"BACKGROUND")
-t:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Background")
-t:SetAllPoints(AAP.OptionsFrame.MainFrame.OptionsB1)
+	--});	
+	--local t = AAP.OptionsFrame.MainFrame.OptionsB1:CreateTexture(nil,"BACKGROUND")
+	--t:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Background")
+	--t:SetAllPoints(AAP.OptionsFrame.MainFrame.OptionsB1)
 AAP.OptionsFrame.MainFrame.OptionsB1.texture = t
 
 	AAP.OptionsFrame.MainFrame.OptionsB1:SetScript("OnMouseDown", function(self, button)
@@ -184,9 +189,9 @@ AAP.OptionsFrame.MainFrame.OptionsB1.texture = t
 	--	edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
 	--	tile = true, tileSize = 10, edgeSize = 10, insets = { left = 2, right = 2, top = 2, bottom = 2 }
 	--});
-local t = AAP.OptionsFrame.MainFrame.OptionsQuests:CreateTexture(nil,"BACKGROUND")
-t:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Background")
-t:SetAllPoints(AAP.OptionsFrame.MainFrame.OptionsQuests)
+--local t = AAP.OptionsFrame.MainFrame.OptionsQuests:CreateTexture(nil,"BACKGROUND")
+--t:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Background")
+--t:SetAllPoints(AAP.OptionsFrame.MainFrame.OptionsQuests)
 AAP.OptionsFrame.MainFrame.OptionsQuests.texture = t
 
 	AAP.OptionsFrame.MainFrame.OptionsQuests:SetScript("OnMouseDown", function(self, button)
@@ -405,7 +410,7 @@ AAP.OptionsFrame.MainFrame.OptionsQuests.texture = t
 	AAP.OptionsFrame.MainFrame.OptionsB2:SetWidth(150)
 	AAP.OptionsFrame.MainFrame.OptionsB2:SetHeight(30)
 	AAP.OptionsFrame.MainFrame.OptionsB2:SetFrameStrata("HIGH")
-	AAP.OptionsFrame.MainFrame.OptionsB2:SetPoint("TOPLEFT",  AAP_OptionsMainFrame, "TOPLEFT",0,-70)
+	AAP.OptionsFrame.MainFrame.OptionsB2:SetPoint("TOPLEFT",  AAP_OptionsMainFrame, "TOPLEFT",0,-80)
 	AAP.OptionsFrame.MainFrame.OptionsB2:SetMovable(true)
 	AAP.OptionsFrame.MainFrame.OptionsB2:EnableMouse(true)
 	--AAP.OptionsFrame.MainFrame.OptionsB2:SetBackdrop( { 
@@ -413,9 +418,9 @@ AAP.OptionsFrame.MainFrame.OptionsQuests.texture = t
 	--	edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
 	--	tile = true, tileSize = 10, edgeSize = 10, insets = { left = 2, right = 2, top = 2, bottom = 2 }
 	--});
-local t = AAP.OptionsFrame.MainFrame.OptionsB2:CreateTexture(nil,"BACKGROUND")
-t:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Background")
-t:SetAllPoints(AAP.OptionsFrame.MainFrame.OptionsB2)
+--local t = AAP.OptionsFrame.MainFrame.OptionsB2:CreateTexture(nil,"BACKGROUND")
+--t:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Background")
+--t:SetAllPoints(AAP.OptionsFrame.MainFrame.OptionsB2)
 AAP.OptionsFrame.MainFrame.OptionsB2.texture = t
 
 	AAP.OptionsFrame.MainFrame.OptionsB2:SetScript("OnMouseDown", function(self, button)
@@ -458,9 +463,9 @@ AAP.OptionsFrame.MainFrame.OptionsB2.texture = t
 	--	edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
 	--	tile = true, tileSize = 10, edgeSize = 10, insets = { left = 2, right = 2, top = 2, bottom = 2 }
 	--});
-local t = AAP.OptionsFrame.MainFrame.OptionsArrow:CreateTexture(nil,"BACKGROUND")
-t:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Background")
-t:SetAllPoints(AAP.OptionsFrame.MainFrame.OptionsArrow)
+--local t = AAP.OptionsFrame.MainFrame.OptionsArrow:CreateTexture(nil,"BACKGROUND")
+--t:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Background")
+--t:SetAllPoints(AAP.OptionsFrame.MainFrame.OptionsArrow)
 AAP.OptionsFrame.MainFrame.OptionsArrow.texture = t
 
 	AAP.OptionsFrame.MainFrame.OptionsArrow:SetScript("OnMouseDown", function(self, button)
@@ -610,7 +615,7 @@ AAP.OptionsFrame.MainFrame.OptionsArrow.texture = t
 	AAP.OptionsFrame.MainFrame.OptionsB3:SetWidth(150)
 	AAP.OptionsFrame.MainFrame.OptionsB3:SetHeight(30)
 	AAP.OptionsFrame.MainFrame.OptionsB3:SetFrameStrata("HIGH")
-	AAP.OptionsFrame.MainFrame.OptionsB3:SetPoint("TOPLEFT",  AAP_OptionsMainFrame, "TOPLEFT",0,-100)
+	AAP.OptionsFrame.MainFrame.OptionsB3:SetPoint("TOPLEFT",  AAP_OptionsMainFrame, "TOPLEFT",0,-110)
 	AAP.OptionsFrame.MainFrame.OptionsB3:SetMovable(true)
 	AAP.OptionsFrame.MainFrame.OptionsB3:EnableMouse(true)
 	--AAP.OptionsFrame.MainFrame.OptionsB3:SetBackdrop( { 
@@ -618,9 +623,9 @@ AAP.OptionsFrame.MainFrame.OptionsArrow.texture = t
 	--	edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
 	--	tile = true, tileSize = 10, edgeSize = 10, insets = { left = 2, right = 2, top = 2, bottom = 2 }
 	--});
-local t = AAP.OptionsFrame.MainFrame.OptionsB3:CreateTexture(nil,"BACKGROUND")
-t:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Background")
-t:SetAllPoints(AAP.OptionsFrame.MainFrame.OptionsB3)
+--local t = AAP.OptionsFrame.MainFrame.OptionsB3:CreateTexture(nil,"BACKGROUND")
+--t:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Background")
+--t:SetAllPoints(AAP.OptionsFrame.MainFrame.OptionsB3)
 AAP.OptionsFrame.MainFrame.OptionsB3.texture = t
 
 	AAP.OptionsFrame.MainFrame.OptionsB3:SetScript("OnMouseDown", function(self, button)
@@ -663,9 +668,9 @@ AAP.OptionsFrame.MainFrame.OptionsB3.texture = t
 	--	edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
 	--	tile = true, tileSize = 10, edgeSize = 10, insets = { left = 2, right = 2, top = 2, bottom = 2 }
 	--});
-local t = AAP.OptionsFrame.MainFrame.OptionsGeneral:CreateTexture(nil,"BACKGROUND")
-t:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Background")
-t:SetAllPoints(AAP.OptionsFrame.MainFrame.OptionsGeneral)
+--local t = AAP.OptionsFrame.MainFrame.OptionsGeneral:CreateTexture(nil,"BACKGROUND")
+--t:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Background")
+--t:SetAllPoints(AAP.OptionsFrame.MainFrame.OptionsGeneral)
 AAP.OptionsFrame.MainFrame.OptionsGeneral.texture = t
 
 	AAP.OptionsFrame.MainFrame.OptionsGeneral:SetScript("OnMouseDown", function(self, button)
@@ -990,7 +995,7 @@ AAP.OptionsFrame.MainFrame.OptionsGeneral.texture = t
 
 
 	AAP.OptionsFrame["Button1"] = CreateFrame("Button", "AAP_OptionsButtons1", AAP.OptionsFrame.MainFrame, "SecureActionButtonTemplate")
-	AAP.OptionsFrame["Button1"]:SetPoint("BOTTOMRIGHT",AAP.OptionsFrame.MainFrame,"BOTTOMRIGHT",-5,5)
+	AAP.OptionsFrame["Button1"]:SetPoint("BOTTOMRIGHT",AAP.OptionsFrame.MainFrame,"BOTTOMRIGHT",-15,15)
 	AAP.OptionsFrame["Button1"]:SetWidth(70)
 	AAP.OptionsFrame["Button1"]:SetHeight(30)
 	AAP.OptionsFrame["Button1"]:SetText("Close")
@@ -1025,7 +1030,7 @@ AAP.OptionsFrame.MainFrame.OptionsGeneral.texture = t
 	AAP.OptionsFrame["ShowStuffs"]:SetHeight(30)
 	AAP.OptionsFrame["ShowStuffs"]:SetFrameStrata("HIGH")
 	AAP.OptionsFrame["ShowStuffs"]:SetText("Custom Path")
-	AAP.OptionsFrame["ShowStuffs"]:SetPoint("BOTTOMRIGHT",AAP.OptionsFrame.MainFrame,"BOTTOMRIGHT",-300,5)
+	AAP.OptionsFrame["ShowStuffs"]:SetPoint("BOTTOMRIGHT",AAP.OptionsFrame.MainFrame,"BOTTOMRIGHT",-295,15)
 	AAP.OptionsFrame["ShowStuffs"]:SetNormalFontObject("GameFontNormalLarge")
 	AAP.OptionsFrame["ShowStuffs"]:SetScript("OnMouseUp", function(self, button)
 		if button == "LeftButton" then
@@ -1040,7 +1045,7 @@ AAP.OptionsFrame.MainFrame.OptionsGeneral.texture = t
 	AAP.OptionsFrame["ShowStuffs2"]:SetHeight(30)
 	AAP.OptionsFrame["ShowStuffs2"]:SetFrameStrata("HIGH")
 	AAP.OptionsFrame["ShowStuffs2"]:SetText("Auto Path Helper")
-	AAP.OptionsFrame["ShowStuffs2"]:SetPoint("BOTTOMRIGHT",AAP.OptionsFrame.MainFrame,"BOTTOMRIGHT",-300,35)
+	AAP.OptionsFrame["ShowStuffs2"]:SetPoint("BOTTOMRIGHT",AAP.OptionsFrame.MainFrame,"BOTTOMRIGHT",-285,45)
 	AAP.OptionsFrame["ShowStuffs2"]:SetNormalFontObject("GameFontNormalLarge")
 	AAP.OptionsFrame["ShowStuffs2"]:SetScript("OnMouseUp", function(self, button)
 		if button == "LeftButton" then
@@ -1052,7 +1057,7 @@ AAP.OptionsFrame.MainFrame.OptionsGeneral.texture = t
 	end)
 
 	AAP.OptionsFrame["Button2"] = CreateFrame("Button", "AAP_OptionsButtons3", AAP.OptionsFrame.MainFrame, "SecureActionButtonTemplate")
-	AAP.OptionsFrame["Button2"]:SetPoint("BOTTOMRIGHT",AAP.OptionsFrame.MainFrame,"BOTTOMRIGHT",-90,5)
+	AAP.OptionsFrame["Button2"]:SetPoint("BOTTOMRIGHT",AAP.OptionsFrame.MainFrame,"BOTTOMRIGHT",-90,15)
 	AAP.OptionsFrame["Button2"]:SetWidth(70)
 	AAP.OptionsFrame["Button2"]:SetHeight(30)
 	AAP.OptionsFrame["Button2"]:SetText("Reset")

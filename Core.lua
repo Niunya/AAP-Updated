@@ -667,15 +667,24 @@ function AAP.RoutePlanLoadIn()
 		print("Function: AAP.RoutePlanLoadIn()")
 	end
 
-	AAP.LoadInOptionFrame = CreateFrame("frame", "AAP_LoadInOptionFrame", UIParent)
+	AAP.LoadInOptionFrame = CreateFrame("Frame", nil, self, BackdropTemplateMixin and "BackdropTemplate")
 	AAP.LoadInOptionFrame:SetWidth(350)
 	AAP.LoadInOptionFrame:SetHeight(130)
 	AAP.LoadInOptionFrame:SetMovable(true)
 	AAP.LoadInOptionFrame:EnableMouse(true)
 	AAP.LoadInOptionFrame:SetFrameStrata("LOW")
 	AAP.LoadInOptionFrame:SetPoint("CENTER", UIParent, "CENTER", 0, 200)
+	AAP.LoadInOptionFrame:SetBackdrop({
+		bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
+		edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+		tile = true,
+		tileEdge = true,
+		tileSize = 28,
+		edgeSize = 34,
+		insets = { left = 11, right = 12, top = 12, bottom = 11 },
+	})
 	local t = AAP.LoadInOptionFrame:CreateTexture(nil,"BACKGROUND")
-	t:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Background")
+	--t:SetTexture("Interface\\TutorialFrame\\TutorialFrameBackground")
 	t:SetAllPoints(AAP.LoadInOptionFrame)
 	AAP.LoadInOptionFrame.texture = t
 
@@ -699,7 +708,7 @@ function AAP.RoutePlanLoadIn()
 	end)
 	AAP.LoadInOptionFrame["FS"] = AAP.LoadInOptionFrame:CreateFontString("AAP_LoadInOptionFrameFS","ARTWORK", "ChatFontNormal")
 	AAP.LoadInOptionFrame["FS"]:SetParent(AAP.LoadInOptionFrame)
-	AAP.LoadInOptionFrame["FS"]:SetPoint("TOP",AAP.LoadInOptionFrame,"TOP",0,0)
+	AAP.LoadInOptionFrame["FS"]:SetPoint("TOP",AAP.LoadInOptionFrame,"TOP",0,-10)
 	AAP.LoadInOptionFrame["FS"]:SetWidth(165)
 	AAP.LoadInOptionFrame["FS"]:SetHeight(20)
 	AAP.LoadInOptionFrame["FS"]:SetJustifyH("CENTER")
@@ -735,7 +744,7 @@ function AAP.RoutePlanLoadIn()
 	AAP.LoadInOptionFrame["B3"]:SetWidth(140)
 	AAP.LoadInOptionFrame["B3"]:SetHeight(30)
 	AAP.LoadInOptionFrame["B3"]:SetText("Custom Path")
-	AAP.LoadInOptionFrame["B3"]:SetPoint("BOTTOMRIGHT", AAP.LoadInOptionFrame, "BOTTOMRIGHT", 0, 25)
+	AAP.LoadInOptionFrame["B3"]:SetPoint("BOTTOMRIGHT", AAP.LoadInOptionFrame, "BOTTOMRIGHT", -15, 15)
 	AAP.LoadInOptionFrame["B3"]:SetNormalFontObject("GameFontNormalLarge")
 	AAP.LoadInOptionFrame["B3"]:SetScript("OnMouseUp", function(self, button)
 		if button == "LeftButton" then
